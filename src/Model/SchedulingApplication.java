@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,21 +39,32 @@ public class SchedulingApplication extends Application {
         DBQuery.setStatement(conn);
         Statement statement = DBQuery.getStatement();
         
-        String selectStatement = "SELECT * FROM countries;";
-        statement.execute(selectStatement);
-        ResultSet resultSet = statement.getResultSet();
+        String country, createDate, createdBy, lastUpdateBy;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Enter a country: ");
+        country = keyboard.nextLine();
+        createDate = "2020-07-20 00:00:00";
+        createdBy = "admin";
+        lastUpdateBy = "admin";
         
-        while(resultSet.next()) {
-            int countryID = resultSet.getInt("Country_ID");
-            String countryName = resultSet.getString("Country");
-            LocalDate date = resultSet.getDate("Create_Date").toLocalDate();
-            LocalTime time = resultSet.getTime("Create_Date").toLocalTime();
-            String createdBy = resultSet.getString("Created_By");
-            LocalDateTime lastUpdate = resultSet.getTimestamp("Last_Update").toLocalDateTime();
-            
-            System.out.println(countryID + " | " + countryName + " | " + date + " | " + time + " | " + createdBy + " | " + lastUpdate);
+        String insertStatement =    "INSERT INTO countries(Country, Create_Date, Created_By, Last_Updated_By)"
+                                    + "VALUES(" +
+                                    "'" + country + "'," +
+                                    "'" + createDate + "'," +
+                                    "'" + createdBy + "'," +
+                                    "'" + lastUpdateBy + "');";
+        try {
+            statement.execute(insertStatement);
+            if(statement.getUpdateCount() > 0) {
+                System.out.println(statement.getUpdateCount() + "row(s) affected");
+            }
+            else {
+                System.out.println("No change");
+            }
         }
-        
+        catch(SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
         launch(args);
         DBConnection.closeConnection();
     }
