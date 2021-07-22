@@ -8,6 +8,7 @@ package Utilities;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 /**
  *This class is used to execute SQL statements on the database
@@ -18,21 +19,21 @@ public class DBQuery {
     /**
      * This variable holds a reference to a statement. 
      */
-    private static Statement statement;
+    private static PreparedStatement statement;
     
     /**
-     * This method is used to create a statement object. 
+     * This method is used to create a prepared statement object. 
      * @param conn Receives a connection object
      */
-    public static void setStatement(Connection conn) throws SQLException {
-        statement = conn.createStatement();       
+    public static void setPreparedStatement(Connection conn, String sqlStatement) throws SQLException {
+        statement = conn.prepareStatement(sqlStatement);       
     }
     
     /**
-     * This method is used to return a statement object. 
+     * This method is used to return a prepared statement object. 
      * @return Returns a statement object
      */
-    public static Statement getStatement() {
+    public static PreparedStatement getPreparedStatement() {
         return statement;
     }
 }
