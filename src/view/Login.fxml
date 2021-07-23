@@ -15,8 +15,8 @@
          </font>
       </Label>
       <Label layoutX="78.0" layoutY="161.0" text="Please sign in to continue" />
-      <TextField layoutX="72.0" layoutY="202.0" promptText="Username" style="-fx-border-width: 1; -fx-border-radius: 6; -fx-border-color: grey;" />
-      <TextField layoutX="72.0" layoutY="238.0" promptText="Password" style="-fx-border-width: 1; -fx-border-radius: 6; -fx-border-color: grey;" />
-      <Button layoutX="120.0" layoutY="276.0" mnemonicParsing="false" text="Login" />
+      <TextField fx:id="userNameTF" layoutX="72.0" layoutY="202.0" promptText="Username" style="-fx-border-width: 1; -fx-border-radius: 6; -fx-border-color: grey;" />
+      <TextField fx:id="passwordTF" layoutX="72.0" layoutY="238.0" promptText="Password" style="-fx-border-width: 1; -fx-border-radius: 6; -fx-border-color: grey;" />
+      <Button layoutX="120.0" layoutY="276.0" mnemonicParsing="false" onAction="#onLogin" text="Login" />
    </children>
 </AnchorPane>
