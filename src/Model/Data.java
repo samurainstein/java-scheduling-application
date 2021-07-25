@@ -12,16 +12,25 @@ import javafx.collections.ObservableList;
  *
  * @author Eric
  */
-public class Data {
+public abstract class Data {
     //Members
-    private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     
     //Methods
-    public ObservableList<Customer> getAllCustomers() {
+    public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
     
-    public void addCustomer(Customer customer) {
+    public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
+    }
+    
+    public static ObservableList<Country> getAllCountries() {
+        return allCountries;
+    }
+    
+    public static void addCountry(Country country) {
+        allCountries.add(country);
     }
 }
