@@ -64,14 +64,14 @@ public class LoginController implements Initializable {
         zoneIDLabel.setText("Location: " + zoneID.toString());
         
         if(Locale.getDefault().getLanguage().equals("fr")) {
-            welcomeLabel.setText("Welcome!");
-            signInLabel.setText("Please sign in");
-            usernameTF.setPromptText("Username");
-            passwordTF.setPromptText("Password");
-            loginButton.setText("Login");
-            alertTitle = "Invalid username or password";
-            alertText = "Username or password is incorrect";
-            zoneIDLabel.setText("Location: " + zoneID.toString());
+            welcomeLabel.setText("Bienvenue!");
+            signInLabel.setText("Connectez-vous s'il vous plaît");
+            usernameTF.setPromptText("Nom de l'utilisateur");
+            passwordTF.setPromptText("Mot de passe");
+            loginButton.setText("Se connecter");
+            alertTitle = "Nom de l'utilisateur ou mot de passe invalide";
+            alertText = "Nom de l’utilisateur ou mot de passe incorrect";
+            zoneIDLabel.setText("Lieu: " + zoneID.toString());
         }
           
     }    
