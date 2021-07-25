@@ -8,6 +8,7 @@ package Controller;
 import DAO.UserDAO;
 import Utilities.DBConnection;
 import Utilities.DBQuery;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,11 +17,21 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -30,27 +41,62 @@ import javafx.scene.control.TextField;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField userNameTF;
+    private TextField usernameTF;
     @FXML
     private TextField passwordTF;
+    @FXML
+    private Label zoneIDLabel;
+    @FXML
+    private Label welcomeLabel;
+    @FXML
+    private Label signInLabel;
+    @FXML
+    private Button loginButton;
 
+    private String alertTitle = "Invalid username or password";
+    private String alertText = "Username or password is incorrect";
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ZoneId zoneID = ZoneId.systemDefault();
+        zoneIDLabel.setText("Location: " + zoneID.toString());
+        
+        if(Locale.getDefault().getLanguage().equals("fr")) {
+            welcomeLabel.setText("Welcome!");
+            signInLabel.setText("Please sign in");
+            usernameTF.setPromptText("Username");
+            passwordTF.setPromptText("Password");
+            loginButton.setText("Login");
+            alertTitle = "Invalid username or password";
+            alertText = "Username or password is incorrect";
+            zoneIDLabel.setText("Location: " + zoneID.toString());
+        }
+          
     }    
 
     @FXML
-    private void onLogin(ActionEvent event) throws SQLException {
-        String username = userNameTF.getText();
+    private void onLogin(ActionEvent event) throws SQLException, IOException {
+        String username = usernameTF.getText();
         String password = passwordTF.getText();
-        Connection conn = DBConnection.getConnection();
-        String sqlStatement = "SELECT * FROM users "
-                            + "WHERE User_Name = '" + username + "'"
-                            + "AND Password = '" + password + "';";
-        //UserDAO.selectUser(sqlStatement);
+        int userID = UserDAO.selectUser(username, password);
+        //System.out.println("The user is " + userID);
+        if(userID == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(alertTitle);
+            alert.setContentText(alertText);
+            alert.showAndWait();
+        }
+        
+        else {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setTitle("Home");
+            stage.setScene(scene);
+            stage.show();
+        }
     }
     
 }

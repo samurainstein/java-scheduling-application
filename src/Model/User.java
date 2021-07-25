@@ -41,30 +41,6 @@ public class User {
     }
     
     /**
-     * This method assigns a userID. 
-     * @param userID The user ID to be assigned
-     */
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-    
-    /**
-     * This method assigns a username. 
-     * @param userID The username to be assigned
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
-    /**
-     * This method assigns a password. 
-     * @param userID The password to be assigned
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    /**
      * This method returns a user ID. 
      * @return Returns the user's ID
      */
