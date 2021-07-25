@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+   <children>
+      <HBox layoutX="34.0" layoutY="53.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onCustomers" prefHeight="61.0" prefWidth="131.0" style="-fx-background-radius: 15;" text="Customers" />
+            <Button mnemonicParsing="false" onAction="#onAppointments" prefHeight="61.0" prefWidth="131.0" style="-fx-background-radius: 15;" text="Appointments" />
+            <Button mnemonicParsing="false" onAction="#onReports" prefHeight="61.0" prefWidth="131.0" style="-fx-background-radius: 15;" text="Reports" />
+         </children>
+      </HBox>
+      <Button layoutX="217.0" layoutY="145.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="30.0" prefWidth="66.0" style="-fx-background-radius: 6;" text="Logout" />
+   </children>
+</AnchorPane>
