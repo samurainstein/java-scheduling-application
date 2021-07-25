@@ -17,27 +17,30 @@ import java.time.LocalTime;
  *
  * @author Eric
  */
-public class UserDAO {
-    
-    //Members
-    private ResultSet resultSet;
-    
+public abstract class UserDAO {
+       
     //Methods
-    public void selectUser(String sqlStatement) throws SQLException {
-        Connection conn = DBConnection.getConnection();
-        DBQuery.setPreparedStatement(conn, sqlStatement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-        
-        preparedStatement.execute();
-        resultSet = preparedStatement.getResultSet();
-        while(resultSet.next()) {
-            int userID = resultSet.getInt("User_ID");
-            String username = resultSet.getString("User_Name");
-            String password = resultSet.getString("Password");
-            LocalDate date = resultSet.getDate("Create_Date").toLocalDate();
-            LocalTime time = resultSet.getTime("Create_Date").toLocalTime();
-            String createdBy = resultSet.getString("Created_By");
-            LocalDateTime lastUpdate = resultSet.getTimestamp("Last_Update").toLocalDateTime();
+    public static int selectUser(String username, String password) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "SELECT * FROM users "
+                                + "WHERE User_Name = ? "
+                                + "AND Password = ?";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()) {
+                int userID = resultSet.getInt("User_ID");
+                return userID;
+            }
         }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
