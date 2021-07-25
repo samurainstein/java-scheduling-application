@@ -36,7 +36,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" style="-fx-background-color: teal; -fx-background-radius: 6;" text="Login">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" style="-fx-background-color: teal; -fx-background-radius: 6;" text="Login" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>

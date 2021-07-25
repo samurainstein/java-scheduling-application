@@ -40,7 +40,7 @@ public class SchedulingApplication extends Application {
         DBConnection.startConnection();
         Connection conn = DBConnection.getConnection();
 
-        Locale.setDefault(new Locale("en"));    
+        Locale.setDefault(new Locale("fr"));    
         
         launch(args);
         DBConnection.closeConnection();
@@ -51,7 +51,12 @@ public class SchedulingApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("User Login");
+        if(Locale.getDefault().getLanguage().equals("fr")){
+            stage.setTitle("Utilisateur en ligne");
+        }
+        else {
+            stage.setTitle("User Login");
+        }
         stage.show();
     }
 }

@@ -46,7 +46,7 @@ public class Customer {
     }
     
     public String getPhone() {
-        return address;
+        return phone;
     }
     
     public int getDivisionID() {
