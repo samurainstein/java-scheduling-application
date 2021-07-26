@@ -16,6 +16,7 @@ public abstract class Data {
     //Members
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
+    private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     
     //Methods
     public static ObservableList<Customer> getAllCustomers() {
@@ -32,5 +33,13 @@ public abstract class Data {
     
     public static void addCountry(Country country) {
         allCountries.add(country);
+    }
+    
+    public static ObservableList<Division> getAllDivisions() {
+        return allDivisions;
+    }
+    
+    public static void addDivision(Division division) {
+        allDivisions.add(division);
     }
 }
