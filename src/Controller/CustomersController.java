@@ -53,8 +53,8 @@ public class CustomersController implements Initializable {
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("Phone"));
         custAddressCol.setCellValueFactory(new PropertyValueFactory<>("CustomerAddress"));
         custPostalCol.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
-        //FIX THIS
-        custDivisionCol.setCellValueFactory(new PropertyValueFactory<>("DivisionID"));
+        custDivisionCol.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        custCountryCol.setCellValueFactory(new PropertyValueFactory<>("Country"));
         CustomerDAO.selectCustomers();
         custTable.setItems(Data.getAllCustomers());
     }    
