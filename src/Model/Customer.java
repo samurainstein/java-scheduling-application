@@ -17,16 +17,18 @@ public class Customer {
     private String address;
     private String postalCode;
     private String phone;
-    private int divisionID;
+    private String division;
+    private String country;
     
     //Methods
-    public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phone, String division, String country) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
-        this.divisionID = divisionID;
+        this.division = division;
+        this.country = country;
     }
     
     public int getCustomerID() {
@@ -49,8 +51,12 @@ public class Customer {
         return phone;
     }
     
-    public int getDivisionID() {
-        return divisionID;
+    public String getDivision() {
+        return division;
+    }
+    
+    public String getCountry() {
+        return country;
     }
     
 }
