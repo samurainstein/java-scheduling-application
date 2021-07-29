@@ -34,6 +34,7 @@ public abstract class CustomerDAO {
 
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
+            //FIX THIS - Do I need to clear the Observable List First?
             while(resultSet.next()) {
                 int customerID = resultSet.getInt("Customer_ID");
                 String customerName = resultSet.getString("Customer_Name");
@@ -47,8 +48,42 @@ public abstract class CustomerDAO {
                 Data.addCustomer(customer);
             }
         }
-        catch(SQLException e) {
-            e.printStackTrace();
+        catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    
+    public static void insertCustomer(String name, String address, String postalCode, String phone, int divisionID) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) "
+                                + "VALUES(?, ?, ?, ?, ?);";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, address);
+            preparedStatement.setString(3, postalCode);
+            preparedStatement.setString(4, phone);
+            preparedStatement.setInt(5, divisionID);
+            preparedStatement.execute();
+        }
+        catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    
+    public static void deleteCustomer(int customerID) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "DELETE FROM customers "
+                                + "WHERE Customer_ID = ?;";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setInt(1,customerID);
+            preparedStatement.execute();
+        }
+        catch(SQLException exception) {
+            exception.printStackTrace();
         }
     }
 }
