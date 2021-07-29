@@ -40,7 +40,7 @@
             <HBox spacing="50.0">
                <children>
                   <Label prefWidth="65.0" text="Country" />
-                  <ComboBox fx:id="countryCombo" prefWidth="150.0" />
+                  <ComboBox fx:id="countryCombo" onAction="#onCountrySelection" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox spacing="50.0">
@@ -51,9 +51,10 @@
             </HBox>
          </children>
       </VBox>
-      <HBox layoutX="100.0" layoutY="334.0" spacing="50.0">
+      <HBox layoutX="63.0" layoutY="333.0" spacing="25.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onSave" prefWidth="75.0" text="Save" />
+            <Button mnemonicParsing="false" onAction="#onClear" prefWidth="75.0" text="Clear" />
             <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="75.0" text="Cancel" />
          </children>
       </HBox>
