@@ -59,6 +59,7 @@ public class CustomersController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("CustomerName"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("Phone"));
@@ -66,8 +67,9 @@ public class CustomersController implements Initializable {
         custPostalCol.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
         custDivisionCol.setCellValueFactory(new PropertyValueFactory<>("Division"));
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("Country"));
-        custTable.getItems().clear();
-        Data.clearCustomers();
+        //FIX THIS - How do I stop initialize from running everytime?
+        //custTable.getItems().clear();
+        //Data.clearCustomers();
         CustomerDAO.selectCustomers();
         custTable.setItems(Data.getAllCustomers());
     }    
@@ -133,6 +135,20 @@ public class CustomersController implements Initializable {
             }         
         }*/
         
+    }
+
+    @FXML
+    private void onUpdate(ActionEvent event) {
+    }
+
+    @FXML
+    private void onHome(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Home");
+        stage.setScene(scene);
+        stage.show();
     }
     
 }

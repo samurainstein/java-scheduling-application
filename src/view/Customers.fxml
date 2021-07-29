@@ -5,11 +5,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="Controller.CustomersController">
    <children>
-      <TableView fx:id="custTable" layoutX="45.0" layoutY="58.0" prefHeight="350.0" prefWidth="700.0">
+      <TableView fx:id="custTable" layoutX="50.0" layoutY="53.0" prefHeight="350.0" prefWidth="700.0">
         <columns>
           <TableColumn fx:id="custIDCol" prefWidth="75.0" text="ID number" />
           <TableColumn fx:id="custNameCol" prefWidth="125.0" text="Customer Name" />
@@ -20,8 +21,14 @@
             <TableColumn fx:id="custCountryCol" prefWidth="100.0" text="Country" />
         </columns>
       </TableView>
-      <Button layoutX="94.0" layoutY="442.0" mnemonicParsing="false" onAction="#onAddCustomer" prefWidth="105.0" text="Add Customer" />
+      <HBox layoutX="130.0" layoutY="433.0" spacing="35.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onAddCustomer" prefWidth="105.0" text="Add Customer" />
+            <Button mnemonicParsing="false" onAction="#onUpdate" prefWidth="110.0" text="Update Customer" />
+            <Button mnemonicParsing="false" onAction="#onDelete" prefWidth="110.0" text="Delete Customer" />
+            <Button mnemonicParsing="false" onAction="#onHome" prefWidth="110.0" text="Home" />
+         </children>
+      </HBox>
       <Accordion layoutX="21.0" layoutY="14.0" />
-      <Button layoutX="236.0" layoutY="442.0" mnemonicParsing="false" onAction="#onDelete" prefWidth="105.0" text="Delete Customer" />
    </children>
 </AnchorPane>
