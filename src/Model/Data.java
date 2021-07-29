@@ -17,6 +17,7 @@ public abstract class Data {
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+    private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();//add to UML
     
     //Methods
     public static ObservableList<Customer> getAllCustomers() {
@@ -25,6 +26,11 @@ public abstract class Data {
     
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
+    }
+    //FIX THIS - Do I need to run this before rerunning a SQL Statement? 
+    public static void clearCustomers() {
+        for(Customer c : allCustomers)
+        allCustomers.clear();
     }
     
     public static ObservableList<Country> getAllCountries() {
@@ -39,7 +45,15 @@ public abstract class Data {
         return allDivisions;
     }
     
+    public static ObservableList<Division> getFilteredDivisions() { //add to uml
+        return filteredDivisions;
+    }
+    
     public static void addDivision(Division division) {
         allDivisions.add(division);
+    }
+    
+    public static void addFilteredDivision(Division division) { //add to uml
+        filteredDivisions.add(division);
     }
 }
