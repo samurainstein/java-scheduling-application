@@ -19,6 +19,7 @@ public class Customer {
     private String phone;
     private String division;
     private String country;
+    //FIX THIS : Should I save the country ID and division ID?
     
     //Methods
     public Customer(int customerID, String customerName, String address, String postalCode, String phone, String division, String country) {
