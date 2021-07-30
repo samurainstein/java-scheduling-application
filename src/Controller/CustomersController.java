@@ -67,9 +67,6 @@ public class CustomersController implements Initializable {
         custPostalCol.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
         custDivisionCol.setCellValueFactory(new PropertyValueFactory<>("Division"));
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("Country"));
-        //FIX THIS - How do I stop initialize from running everytime?
-        //custTable.getItems().clear();
-        //Data.clearCustomers();
         CustomerDAO.selectCustomers();
         custTable.setItems(Data.getAllCustomers());
     }    
@@ -88,26 +85,7 @@ public class CustomersController implements Initializable {
     private void onDelete(ActionEvent event) {
         Customer customer = custTable.getSelectionModel().getSelectedItem();
         int customerID = customer.getCustomerID();
-        if (customer == null){
-                JOptionPane.showMessageDialog(null, "Please Select a Customer");
-                return;
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent() && result.get() == ButtonType.OK) { 
-                CustomerDAO.deleteCustomer(customerID);
-                //FIX THIS: How to refresh the table after delete?
-                //Data.clearCustomers();
-                //CustomerDAO.selectCustomers();
-                custTable.setItems(Data.getAllCustomers());
-                JOptionPane.showMessageDialog(null, "Selected customer was deleted");
-            }
-        //else {
-        //    JOptionPane.showMessageDialog(null, "No parts were deleted");
-        //}          
-        }
-        /*
+        
         if (customer == null){
             Alert invalidAlert = new Alert(Alert.AlertType.ERROR);
             invalidAlert.setTitle("Invalid Selection");
@@ -119,26 +97,37 @@ public class CustomersController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) { 
+                //FIX THIS: Do I need a confirmation that it was actually deleted from the db?
                 CustomerDAO.deleteCustomer(customerID);
+                CustomerDAO.selectCustomers();
+                custTable.setItems(Data.getAllCustomers());
                 Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
                 confirmAlert.setTitle("Confirmation");
                 confirmAlert.setContentText("Customer was deleted");
                 confirmAlert.showAndWait();
             }
-        }
-        
-            else  {
-            Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
-            confirmAlert.setTitle("Confirmation");
-            confirmAlert.setContentText("Customer was deleted");
-            confirmAlert.showAndWait();
-            }         
-        }*/
-        
+        }    
     }
 
     @FXML
-    private void onUpdate(ActionEvent event) {
+    private void onUpdate(ActionEvent event) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CustomerUpdate.fxml"));
+            Parent root = loader.load();
+            CustomerUpdateController updateCont = loader.getController();
+            updateCont.passCustomerData(custTable.getSelectionModel().getSelectedItem());
+            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setTitle("Update Customer");
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(NullPointerException exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Selection");
+            alert.setContentText("Please select a customer");
+            alert.showAndWait();
+        }
     }
 
     @FXML
