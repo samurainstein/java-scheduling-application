@@ -5,6 +5,7 @@
  */
 package Model;
 
+import DAO.CustomerDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,9 +28,8 @@ public abstract class Data {
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
     }
-    //FIX THIS - Do I need to run this before rerunning a SQL Statement? 
+     
     public static void clearCustomers() {
-        for(Customer c : allCustomers)
         allCustomers.clear();
     }
     
