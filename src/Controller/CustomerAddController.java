@@ -67,7 +67,6 @@ public class CustomerAddController implements Initializable {
             int divisionID = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
             
             CustomerDAO.insertCustomer(name, address, postalCode, phone, divisionID);
-            //FIX THIS - I have to click save twice to return to the Customers screen
             System.out.println("save button clicked");
             Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
             Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -106,9 +105,12 @@ public class CustomerAddController implements Initializable {
     @FXML
     private void onCountrySelection(ActionEvent event) {
         //Filter Division Combo Box by Country
+        DivisionDAO.selectDivisions();
+        divisionCombo.setItems(Data.getAllDivisions());
         if(!(countryCombo.getSelectionModel().isEmpty())) {
             divisionCombo.getItems().clear();
             int countryIDSelection = countryCombo.getValue().getCountryID();
+            System.out.println(countryIDSelection);
             DivisionDAO.selectFilteredDivisions(countryIDSelection);
             divisionCombo.setItems(Data.getFilteredDivisions());
             divisionCombo.setPromptText("Select a Division");
