@@ -24,6 +24,8 @@ public abstract class CustomerDAO {
     //Methods
     public static void selectCustomers() {
         try {
+            if(Data.getAllCustomers().size() > 0)
+                return;
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division, Country "
                                 + "FROM customers, first_level_divisions, countries "
@@ -34,7 +36,6 @@ public abstract class CustomerDAO {
 
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
-            //FIX THIS - Do I need to clear the Observable List First?
             while(resultSet.next()) {
                 int customerID = resultSet.getInt("Customer_ID");
                 String customerName = resultSet.getString("Customer_Name");
@@ -66,6 +67,7 @@ public abstract class CustomerDAO {
             preparedStatement.setString(4, phone);
             preparedStatement.setInt(5, divisionID);
             preparedStatement.execute();
+            Data.clearCustomers();
         }
         catch(SQLException exception) {
             exception.printStackTrace();
@@ -81,6 +83,7 @@ public abstract class CustomerDAO {
             PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
             preparedStatement.setInt(1,customerID);
             preparedStatement.execute();
+            Data.clearCustomers();
         }
         catch(SQLException exception) {
             exception.printStackTrace();
