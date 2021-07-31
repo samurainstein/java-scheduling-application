@@ -67,7 +67,6 @@ public class CustomerAddController implements Initializable {
             int divisionID = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
             
             CustomerDAO.insertCustomer(name, address, postalCode, phone, divisionID);
-            System.out.println("save button clicked");
             Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
             Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
@@ -75,8 +74,8 @@ public class CustomerAddController implements Initializable {
             stage.setTitle("Customers");
             stage.show();
         }
-        catch(Exception exception) {
-            //FIX THIS
+        catch(IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -86,7 +85,6 @@ public class CustomerAddController implements Initializable {
         phoneTF.setText("");
         addressTF.setText("");
         postalTF.setText("");
-        //FIX THIS: When I hit the clear button, the prompt text doesn't come back.
         countryCombo.getSelectionModel().clearSelection();
         divisionCombo.getItems().clear();
         
@@ -105,15 +103,12 @@ public class CustomerAddController implements Initializable {
     @FXML
     private void onCountrySelection(ActionEvent event) {
         //Filter Division Combo Box by Country
-        DivisionDAO.selectDivisions();
-        divisionCombo.setItems(Data.getAllDivisions());
         if(!(countryCombo.getSelectionModel().isEmpty())) {
             divisionCombo.getItems().clear();
             int countryIDSelection = countryCombo.getValue().getCountryID();
-            System.out.println(countryIDSelection);
             DivisionDAO.selectFilteredDivisions(countryIDSelection);
             divisionCombo.setItems(Data.getFilteredDivisions());
-            divisionCombo.setPromptText("Select a Division");
+            divisionCombo.setPromptText("Please Select a Division");
         }
     }
     
