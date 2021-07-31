@@ -29,7 +29,7 @@ public abstract class Data {
         allCustomers.add(customer);
     }
      
-    public static void clearCustomers() {
+    public static void clearCustomers() { //add to uml
         allCustomers.clear();
     }
     
@@ -39,6 +39,10 @@ public abstract class Data {
     
     public static void addCountry(Country country) {
         allCountries.add(country);
+    }
+    
+    public static void clearCountries() { //add to uml
+        allCountries.clear();
     }
     
     public static ObservableList<Division> getAllDivisions() {
@@ -55,5 +59,13 @@ public abstract class Data {
     
     public static void addFilteredDivision(Division division) { //add to uml
         filteredDivisions.add(division);
+    }
+    
+    public static void clearDivisions() { //add to uml
+        allDivisions.clear();
+    }
+    
+    public static void clearFilteredDivisions() { //add to uml
+        filteredDivisions.clear();
     }
 }
