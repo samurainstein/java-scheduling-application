@@ -21,6 +21,7 @@ import java.sql.SQLException;
 public abstract class DivisionDAO {
     public static void selectDivisions() {
         try {
+            Data.clearDivisions();
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT * from first_level_divisions;";
             DBQuery.setPreparedStatement(conn, sqlStatement);
@@ -45,6 +46,7 @@ public abstract class DivisionDAO {
     
     public static void selectFilteredDivisions(int filterID) {
         try {
+            Data.clearFilteredDivisions();
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT * from first_level_divisions "
                                 + "WHERE Country_ID = ? ORDER BY Division;";
