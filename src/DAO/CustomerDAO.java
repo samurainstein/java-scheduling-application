@@ -24,8 +24,9 @@ public abstract class CustomerDAO {
     //Methods
     public static void selectCustomers() {
         try {
-            if(Data.getAllCustomers().size() > 0)
-                return;
+            //if(Data.getAllCustomers().size() > 0)
+            //    return;
+            Data.clearCustomers();
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division, Country "
                                 + "FROM customers, first_level_divisions, countries "
@@ -68,6 +69,27 @@ public abstract class CustomerDAO {
             preparedStatement.setInt(5, divisionID);
             preparedStatement.execute();
             Data.clearCustomers();
+        }
+        catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    
+    public static void updateCustomer(String name, String address, String postalCode, String phone, int divisionID, int customerID) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "UPDATE customers "
+                                + "SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? "
+                                + "WHERE Customer_ID = ?;";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, address);
+            preparedStatement.setString(3, postalCode);
+            preparedStatement.setString(4, phone);
+            preparedStatement.setInt(5, divisionID);
+            preparedStatement.setInt(6, customerID);
+            preparedStatement.execute();
         }
         catch(SQLException exception) {
             exception.printStackTrace();
