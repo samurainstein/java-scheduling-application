@@ -19,6 +19,7 @@ public abstract class Data {
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();//add to UML
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
     
     //Methods
     public static ObservableList<Customer> getAllCustomers() {
@@ -49,23 +50,36 @@ public abstract class Data {
         return allDivisions;
     }
     
-    public static ObservableList<Division> getFilteredDivisions() { //add to uml
-        return filteredDivisions;
-    }
-    
     public static void addDivision(Division division) {
         allDivisions.add(division);
-    }
-    
-    public static void addFilteredDivision(Division division) { //add to uml
-        filteredDivisions.add(division);
     }
     
     public static void clearDivisions() { //add to uml
         allDivisions.clear();
     }
     
+    public static ObservableList<Division> getFilteredDivisions() { //add to uml
+        return filteredDivisions;
+    }
+    
+    public static void addFilteredDivision(Division division) { //add to uml
+        filteredDivisions.add(division);
+    }
+       
     public static void clearFilteredDivisions() { //add to uml
         filteredDivisions.clear();
     }
+    
+    public static ObservableList<Appointment> getAllAppointments() {
+        return allAppointments;
+    }
+    
+    public static void addAppointment(Appointment appointment) {
+        allAppointments.add(appointment);        
+    }
+    
+    public static void clearAppointments() {
+        allAppointments.clear();
+    }
+    
 }
