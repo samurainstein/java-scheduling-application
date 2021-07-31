@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * @author Eric
  */
 public class SchedulingApplication extends Application {
-
+        
     /**
      * @param args the command line arguments
      */
@@ -40,7 +40,7 @@ public class SchedulingApplication extends Application {
         DBConnection.startConnection();
         Connection conn = DBConnection.getConnection();
 
-        Locale.setDefault(new Locale("fr"));    
+        //Locale.setDefault(new Locale("fr"));    
         
         launch(args);
         DBConnection.closeConnection();
