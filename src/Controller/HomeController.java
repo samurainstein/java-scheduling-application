@@ -43,7 +43,13 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void onAppointments(ActionEvent event) {
+    private void onAppointments(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Appointments");
+        stage.show();
     }
 
     @FXML

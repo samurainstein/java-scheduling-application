@@ -97,7 +97,6 @@ public class CustomersController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) { 
-                //FIX THIS: Do I need a confirmation that it was actually deleted from the db?
                 CustomerDAO.deleteCustomer(customerID);
                 CustomerDAO.selectCustomers();
                 custTable.setItems(Data.getAllCustomers());

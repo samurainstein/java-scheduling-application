@@ -6,6 +6,8 @@
 package Controller;
 
 import DAO.CountryDAO;
+import DAO.CustomerDAO;
+import DAO.DivisionDAO;
 import Model.Country;
 import Model.Customer;
 import Model.Data;
@@ -13,6 +15,8 @@ import Model.Division;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,23 +66,81 @@ public class CustomerUpdateController implements Initializable {
         nameTF.setText(customer.getCustomerName());
         phoneTF.setText(customer.getPhone());
         addressTF.setText(customer.getCustomerAddress());
+        postalTF.setText(customer.getPostalCode());
+        String divisionName = customer.getDivision();
+        //Why does this need to have an initial value?
+        int countryID = 0;
+        
+        ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+        ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();
+        DivisionDAO.selectDivisions();
+        allDivisions = Data.getAllDivisions();
+        for(Division div : allDivisions) {
+            if(divisionName.equals(div.getDivisionName())) {
+                countryID = div.getCountryID();
+                DivisionDAO.selectFilteredDivisions(countryID);
+                filteredDivisions = Data.getFilteredDivisions();
+                divisionCombo.setItems(filteredDivisions);
+                divisionCombo.setValue(div);
+                break;
+            }
+        }
+        
+        ObservableList<Country> allCountries = FXCollections.observableArrayList();
         CountryDAO.selectCountries();
-        countryCombo.setItems(Data.getAllCountries());
-        //FIX This : How do I set the country and division combo boxes?
-        //countryCombo;
-        //divisionCombo;
+        allCountries = Data.getAllCountries();
+        countryCombo.setItems(allCountries);
+        for(Country country : allCountries) {
+            if(countryID == country.getCountryID()) {               
+                countryCombo.setValue(country);
+            }
+        }
     }
 
     @FXML
     private void onCountrySelection(ActionEvent event) {
+        if(!(countryCombo.getSelectionModel().isEmpty())) {
+            divisionCombo.getItems().clear();
+            int countryIDSelection = countryCombo.getValue().getCountryID();
+            DivisionDAO.selectFilteredDivisions(countryIDSelection);
+            divisionCombo.setItems(Data.getFilteredDivisions());
+            divisionCombo.setValue(null);
+            divisionCombo.setPromptText("Please Select a Division");
+        }
     }
 
     @FXML
     private void onSave(ActionEvent event) {
+        try {
+            String name = nameTF.getText();
+            String phone = phoneTF.getText();
+            String address = addressTF.getText();
+            String postalCode = postalTF.getText();
+            int divisionID = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+            int customerID = Integer.parseInt(idTF.getText());
+            
+            CustomerDAO.updateCustomer(name, address, postalCode, phone, divisionID, customerID);
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Customers");
+            stage.show();
+        }
+        catch(IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @FXML
     private void onClear(ActionEvent event) {
+        nameTF.setText("");
+        phoneTF.setText("");
+        addressTF.setText("");
+        postalTF.setText("");
+        countryCombo.getSelectionModel().clearSelection();
+        divisionCombo.getItems().clear();
+        divisionCombo.setValue(null);
     }
 
     @FXML
