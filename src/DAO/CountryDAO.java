@@ -23,6 +23,7 @@ public abstract class CountryDAO {
     //Methods
     public static void selectCountries() {
         try {
+            Data.clearCountries();
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT * FROM countries; ";
             DBQuery.setPreparedStatement(conn, sqlStatement);
