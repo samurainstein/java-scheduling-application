@@ -24,10 +24,11 @@ public class Appointment {
     private int customerID;
     private int contactID;
     private int userID;
+    private String contactName;
     
     //Methods
     public Appointment(int appointmentID, String title, String description,String location, 
-            String type, LocalDateTime start, LocalDateTime end, int customerID, int contactID, int userID) {
+            String type, LocalDateTime start, LocalDateTime end, int customerID, int contactID, int userID, String contactName) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -38,6 +39,7 @@ public class Appointment {
         this.customerID = customerID;
         this.contactID = contactID;
         this.userID = userID;
+        this.contactName = contactName;
     }
     
     public int getAppointmentID() {
@@ -54,6 +56,10 @@ public class Appointment {
     
     public String getLocation() {
         return location;
+    }
+    
+    public String getType() {
+        return type;
     }
     
     public LocalDateTime getStart() {
@@ -74,6 +80,10 @@ public class Appointment {
     
     public int getUserID() {
         return userID;
+    }
+    
+    public String getContactName() {
+        return contactName;
     }
     
 }

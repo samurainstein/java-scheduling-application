@@ -5,9 +5,16 @@
  */
 package Controller;
 
+import DAO.AppointmentDAO;
+import Model.Appointment;
+import Model.Data;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -28,78 +36,97 @@ import javafx.stage.Stage;
 public class AppointmentsController implements Initializable {
 
     @FXML
-    private TableView<?> monthViewTable;
+    private TableView<Appointment> monthViewTable;
     @FXML
-    private TableView<?> weekViewTable;
+    private TableView<Appointment> weekViewTable;
     @FXML
     private Tab monthTab;
     @FXML
     private Tab weekTab;
     @FXML
-    private TableColumn<?, ?> monthApptIDCol;
+    private TableColumn<Appointment, Integer> monthApptIDCol;
     @FXML
-    private TableColumn<?, ?> monthTitleCol;
+    private TableColumn<Appointment, String> monthTitleCol;
     @FXML
-    private TableColumn<?, ?> monthDescriptionCol;
+    private TableColumn<Appointment, String> monthDescriptionCol;
     @FXML
-    private TableColumn<?, ?> monthLocationCol;
+    private TableColumn<Appointment, String> monthLocationCol;
     @FXML
-    private TableColumn<?, ?> monthContactCol;
+    private TableColumn<Appointment, String> monthContactCol;
     @FXML
-    private TableColumn<?, ?> monthTypeCol;
+    private TableColumn<Appointment, String> monthTypeCol;
     @FXML
-    private TableColumn<?, ?> monthStartCol;
+    private TableColumn<Appointment, LocalDateTime> monthStartCol;
     @FXML
-    private TableColumn<?, ?> monthEndCol;
+    private TableColumn<Appointment, LocalDateTime> monthEndCol;
     @FXML
-    private TableColumn<?, ?> monthCustIDCol;
+    private TableColumn<Appointment, Integer> monthCustIDCol;
     @FXML
-    private TableColumn<?, ?> weekApptIDCol;
+    private TableColumn<Appointment, Integer> weekApptIDCol;
     @FXML
-    private TableColumn<?, ?> weekTitleCol;
+    private TableColumn<Appointment, String> weekTitleCol;
     @FXML
-    private TableColumn<?, ?> weekDescriptionCol;
+    private TableColumn<Appointment, String> weekDescriptionCol;
     @FXML
-    private TableColumn<?, ?> weekLocationCol;
+    private TableColumn<Appointment, String> weekLocationCol;
     @FXML
-    private TableColumn<?, ?> weekContactCol;
+    private TableColumn<Appointment, String> weekContactCol;
     @FXML
-    private TableColumn<?, ?> weekTypeCol;
+    private TableColumn<Appointment, String> weekTypeCol;
     @FXML
-    private TableColumn<?, ?> weekStartCol;
+    private TableColumn<Appointment, LocalDateTime> weekStartCol;
     @FXML
-    private TableColumn<?, ?> weekEndCol;
+    private TableColumn<Appointment, LocalDateTime> weekEndCol;
     @FXML
-    private TableColumn<?, ?> weekCustIDCol;
+    private TableColumn<Appointment, Integer> weekCustIDCol;
     @FXML
     private Tab allTab;
     @FXML
-    private TableView<?> allViewTable;
+    private TableView<Appointment> allViewTable;
     @FXML
-    private TableColumn<?, ?> allApptIDCol;
+    private TableColumn<Appointment, Integer> allApptIDCol;
     @FXML
-    private TableColumn<?, ?> allTitleCol;
+    private TableColumn<Appointment, String> allTitleCol;
     @FXML
-    private TableColumn<?, ?> allDescriptionCol;
+    private TableColumn<Appointment, String> allDescriptionCol;
     @FXML
-    private TableColumn<?, ?> allLocationCol;
+    private TableColumn<Appointment, String> allLocationCol;
     @FXML
-    private TableColumn<?, ?> allContactCol;
+    private TableColumn<Appointment, String> allContactCol;
     @FXML
-    private TableColumn<?, ?> allTypeCol;
+    private TableColumn<Appointment, String> allTypeCol;
     @FXML
-    private TableColumn<?, ?> allStartCol;
+    private TableColumn<Appointment, LocalDateTime> allStartCol;
     @FXML
-    private TableColumn<?, ?> allEndCol;
+    private TableColumn<Appointment, LocalDateTime> allEndCol;
     @FXML
-    private TableColumn<?, ?> allCustomerIDCol;
+    private TableColumn<Appointment, Integer> allCustomerIDCol;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        allApptIDCol.setCellValueFactory(new PropertyValueFactory<>("AppointmentID"));
+        allTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        allDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        allLocationCol.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        allTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        allStartCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        allEndCol.setCellValueFactory(new PropertyValueFactory<>("End"));
+        allCustomerIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        //FIX THIS: Display ID or name?
+        allContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactName"));
+        
+        try {
+            AppointmentDAO.selectAppointments();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        allViewTable.setItems(Data.getAllAppointments());
+
     }    
 
     @FXML
