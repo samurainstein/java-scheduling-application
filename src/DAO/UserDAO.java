@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package DAO;
+import Model.Data;
+import Model.User;
 import Utilities.DBConnection;
 import Utilities.DBQuery;
 import java.sql.Connection;
@@ -20,8 +22,8 @@ import java.time.LocalTime;
 public abstract class UserDAO {
        
     //Methods
-    public static int selectUser(String username, String password) {
-        try {
+    public static int userLogin(String username, String password) {
+        try {           
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT * FROM users "
                                 + "WHERE User_Name = ? "
@@ -42,5 +44,29 @@ public abstract class UserDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+    
+    public static void selectUsers() {
+        try {
+            Data.clearUsers();
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "SELECT * from users";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()) {
+                int userID = resultSet.getInt("User_ID");
+                String username = resultSet.getString("User_Name");
+                String password = resultSet.getString("Password");
+                
+                User user = new User(userID, username, password);
+                Data.addUser(user);
+                System.out.println(user);
+            }
+        }
+        catch(SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 }

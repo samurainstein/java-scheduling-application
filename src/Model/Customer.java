@@ -59,4 +59,9 @@ public class Customer {
         return country;
     }
     
+    @Override
+    public String toString() {
+        return ("[" + customerID + "] " + customerName);
+    }
+    
 }

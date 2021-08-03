@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
     private void onLogin(ActionEvent event) throws SQLException, IOException {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
-        int userID = UserDAO.selectUser(username, password);
+        int userID = UserDAO.userLogin(username, password);
         //System.out.println("The user is " + userID);
         if(userID == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
