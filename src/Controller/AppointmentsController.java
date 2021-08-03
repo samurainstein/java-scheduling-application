@@ -6,12 +6,14 @@
 package Controller;
 
 import DAO.AppointmentDAO;
+import DAO.CustomerDAO;
 import Model.Appointment;
 import Model.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +23,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -115,7 +119,6 @@ public class AppointmentsController implements Initializable {
         allStartCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
         allEndCol.setCellValueFactory(new PropertyValueFactory<>("End"));
         allCustomerIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
-        //FIX THIS: Display ID or name?
         allContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactName"));
         
         try {
@@ -130,15 +133,46 @@ public class AppointmentsController implements Initializable {
     }    
 
     @FXML
-    private void onAdd(ActionEvent event) {
+    private void onAdd(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load((getClass().getResource("/view/AppointmentAdd.fxml")));
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Add Appointment");
+        stage.show();
     }
-
+    
     @FXML
     private void onUpdate(ActionEvent event) {
     }
 
     @FXML
-    private void onDelete(ActionEvent event) {
+    private void onDelete(ActionEvent event) throws SQLException {
+        Appointment appointment = allViewTable.getSelectionModel().getSelectedItem();
+        int appointmentID = appointment.getAppointmentID();
+
+        allViewTable.setItems(Data.getAllAppointments());
+        if (appointment == null){
+            Alert invalidAlert = new Alert(Alert.AlertType.ERROR);
+            invalidAlert.setTitle("Invalid Selection");
+            invalidAlert.setContentText("Please select an appointment");
+            invalidAlert.showAndWait();
+            return;
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK) { 
+                AppointmentDAO.deleteAppointment(appointmentID);
+                AppointmentDAO.selectAppointments();
+                allViewTable.setItems(Data.getAllAppointments());
+                Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
+                confirmAlert.setTitle("Confirmation");
+                confirmAlert.setContentText("Appointment ID: [" + appointmentID + "] was deleted");
+                confirmAlert.showAndWait();
+            }
+        }    
+        
     }
 
     @FXML

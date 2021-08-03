@@ -54,13 +54,13 @@
                   <HBox spacing="30.0">
                      <children>
                         <Label prefWidth="75.0" text="Start Date" />
-                        <DatePicker fx:id="startDatePick" />
+                        <DatePicker fx:id="startDatePick" onAction="#onSelectStartDate" />
                      </children>
                   </HBox>
                   <HBox spacing="30.0">
                      <children>
                         <Label prefWidth="75.0" text="Start Time" />
-                        <ComboBox fx:id="startTimeCombo" prefWidth="150.0" />
+                        <ComboBox fx:id="startTimeCombo" onAction="#onSelectStartTime" prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox spacing="30.0">

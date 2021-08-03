@@ -6,6 +6,9 @@
 package Model;
 
 import DAO.CustomerDAO;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,6 +23,11 @@ public abstract class Data {
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();//add to UML
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
+    private static ObservableList<ZonedDateTime> zonedAppointmentTimes = FXCollections.observableArrayList();
+    private static ObservableList<LocalTime> appointmentTimes = FXCollections.observableArrayList();
+     
     
     //Methods
     public static ObservableList<Customer> getAllCustomers() {
@@ -82,4 +90,39 @@ public abstract class Data {
         allAppointments.clear();
     }
     
+    public static ObservableList<Contact> getAllContacts() {
+        return allContacts;
+    }
+    
+    public static void addContact(Contact contact) {
+        allContacts.add(contact);
+    }
+    
+    public static void clearContacts() {
+        allContacts.clear();
+    }
+    
+    public static ObservableList<User> getAllUsers() {
+        return allUsers;
+    }
+    
+    public static void addUser(User user) {
+        allUsers.add(user);
+    }
+    
+    public static void clearUsers() {
+        allUsers.clear();
+    }
+    
+    public static ObservableList<ZonedDateTime> getAllAppointmentTimes() {
+        return zonedAppointmentTimes;
+    }
+    
+    public static void addAppointmentTime(ZonedDateTime appointmentTime) {
+        zonedAppointmentTimes.add(appointmentTime);
+    }
+    
+    public static void clearAppointmentTimes() {
+        zonedAppointmentTimes.clear();
+    }
 }
