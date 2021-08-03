@@ -58,10 +58,8 @@ public class CustomerUpdateController implements Initializable {
         
     }    
     
-    private Customer passCustomer;
     
     public void passCustomerData(Customer customer) {
-        passCustomer = customer;
         idTF.setText(Integer.toString(customer.getCustomerID()));
         nameTF.setText(customer.getCustomerName());
         phoneTF.setText(customer.getPhone());
