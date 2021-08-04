@@ -125,4 +125,37 @@ public abstract class Data {
     public static void clearAppointmentTimes() {
         zonedAppointmentTimes.clear();
     }
+    
+    public static Contact getContactObject(int contactID) {
+        Contact contactObject = null;
+        for(Contact contact : allContacts) {
+            if(contact.getContactID() == contactID) {
+                contactObject = contact;
+                break;
+            }
+        }
+        return contactObject;
+    }
+    
+    public static Customer getCustomerObject(int customerID) {
+        Customer customerObject = null;
+        for(Customer customer : allCustomers) {
+            if(customer.getCustomerID() == customerID) {
+                customerObject = customer;
+                break;
+            }
+        }
+        return customerObject;
+    }
+    
+    public static User getUserObject(int userID) {
+        User userObject = null;
+        for(User user : allUsers) {
+            if(user.getUserID() == userID) {
+                userObject = user;
+                break;
+            }
+        }
+        return userObject;
+    }
 }

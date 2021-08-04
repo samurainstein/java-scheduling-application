@@ -85,6 +85,34 @@ public abstract class AppointmentDAO {
             
     }
     
+    public static void updateAppointment(int appointmentID, String title, String description, String location, String type,
+                                            LocalDateTime start, LocalDateTime end, int customerID, int userID, 
+                                            int contactID) throws SQLException {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "UPDATE appointments "
+                                + "SET Title = ?, Description = ?, Location = ?, "
+                                + "Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? "
+                                + "Where Appointment_ID = ?;";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, location);
+            preparedStatement.setString(4, type);
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
+            preparedStatement.setInt(7, customerID);
+            preparedStatement.setInt(8, userID);
+            preparedStatement.setInt(9, contactID);
+            preparedStatement.setInt(10, appointmentID);
+            preparedStatement.execute();
+        }
+        catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
             Connection conn = DBConnection.getConnection();
