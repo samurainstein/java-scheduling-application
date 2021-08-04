@@ -6,6 +6,8 @@
 package Model;
 
 import DAO.CustomerDAO;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -23,10 +25,13 @@ public abstract class Data {
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();//add to UML
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> monthlyAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> weeklyAppointments = FXCollections.observableArrayList();
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<ZonedDateTime> zonedAppointmentTimes = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> appointmentTimes = FXCollections.observableArrayList();
+
      
     
     //Methods
@@ -88,6 +93,39 @@ public abstract class Data {
     
     public static void clearAppointments() {
         allAppointments.clear();
+    }
+    
+    public static void filterMonthlyAppointments() {
+        LocalDate today = LocalDate.now();
+        int monthOfYear = today.getMonthValue();
+        for(Appointment appointment : allAppointments) {
+            if(appointment.getStart().getMonthValue() == monthOfYear)
+                monthlyAppointments.add(appointment);
+        }
+    }
+    
+    public static ObservableList<Appointment> getMonthlyAppointments() {
+        return monthlyAppointments;
+    }
+    
+    public static void clearMonthlyAppointments() {
+        monthlyAppointments.clear();
+    }
+    
+    public static void filterWeeklyAppointments() {
+        /*LocalDate today = LocalDate.now();
+        for(Appointment appointment : allAppointments) {
+            if(appointment.getStart().getMonthValue() == monthOfYear)
+                monthlyAppointments.add(appointment);
+        }*/
+    }
+    
+    public static ObservableList<Appointment> getWeeklyAppointments() {
+        return weeklyAppointments;
+    }
+    
+    public static void clearWeeklyAppointments() {
+        weeklyAppointments.clear();
     }
     
     public static ObservableList<Contact> getAllContacts() {

@@ -22,7 +22,7 @@
       <Accordion layoutX="21.0" layoutY="14.0" />
       <TabPane layoutX="35.0" layoutY="33.0" prefHeight="380.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-            <Tab fx:id="allTab" text="All Appointments">
+            <Tab fx:id="allTab" onSelectionChanged="#onAllTab" text="All Appointments">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -43,7 +43,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-          <Tab fx:id="monthTab" text="Month View">
+          <Tab fx:id="monthTab" onSelectionChanged="#onMonthTab" text="Month View">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="413.0">
                      <children>
@@ -64,7 +64,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="weekTab" text="Week View">
+          <Tab fx:id="weekTab" onSelectionChanged="#onWeekTab" text="Week View">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

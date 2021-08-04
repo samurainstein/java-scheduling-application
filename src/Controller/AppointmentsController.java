@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -121,6 +122,26 @@ public class AppointmentsController implements Initializable {
         allCustomerIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
         allContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactName"));
         
+        monthApptIDCol.setCellValueFactory(new PropertyValueFactory<>("AppointmentID"));
+        monthTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        monthDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        monthLocationCol.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        monthTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        monthStartCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        monthEndCol.setCellValueFactory(new PropertyValueFactory<>("End"));
+        monthCustIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        monthContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactName"));
+        
+        weekApptIDCol.setCellValueFactory(new PropertyValueFactory<>("AppointmentID"));
+        weekTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        weekDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        weekLocationCol.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        weekTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        weekStartCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        weekEndCol.setCellValueFactory(new PropertyValueFactory<>("End"));
+        weekCustIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        weekContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactName"));
+        
         try {
             AppointmentDAO.selectAppointments();
         } 
@@ -200,6 +221,36 @@ public class AppointmentsController implements Initializable {
         stage.setTitle("Home");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void onAllTab(Event event) {
+        try {
+            AppointmentDAO.selectAppointments();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        allViewTable.setItems(Data.getAllAppointments());
+    }
+
+    @FXML
+    private void onMonthTab(Event event) {
+        Data.clearMonthlyAppointments();
+        try {
+            AppointmentDAO.selectAppointments();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        Data.filterMonthlyAppointments();
+        monthViewTable.setItems(Data.getMonthlyAppointments());
+    }
+
+    @FXML
+    private void onWeekTab(Event event) {
+        Data.clearWeeklyAppointments();
     }
     
 }
