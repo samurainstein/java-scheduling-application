@@ -7,6 +7,13 @@ package Model;
 
 import DAO.CustomerDAO;
 import java.time.DayOfWeek;
+import static java.time.DayOfWeek.FRIDAY;
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.DayOfWeek.THURSDAY;
+import static java.time.DayOfWeek.TUESDAY;
+import static java.time.DayOfWeek.WEDNESDAY;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -113,11 +120,39 @@ public abstract class Data {
     }
     
     public static void filterWeeklyAppointments() {
-        /*LocalDate today = LocalDate.now();
+        LocalDate startDate = LocalDate.now(); 
+        DayOfWeek dayOfWeek = startDate.getDayOfWeek();
+        switch (dayOfWeek) {
+            case MONDAY:
+                return;
+            case TUESDAY:
+                startDate = startDate.minusDays(1);
+                break;
+            case WEDNESDAY:
+                startDate = startDate.minusDays(2);
+                break;
+            case THURSDAY:
+                startDate = startDate.minusDays(3);
+                break;
+            case FRIDAY:
+                startDate = startDate.minusDays(4);
+                break;
+            case SATURDAY:
+                startDate = startDate.minusDays(5);
+                break;
+            case SUNDAY:
+                startDate = startDate.minusDays(6);
+                break;
+            default:
+                break;
+        }
+        
+        LocalDate endDate = startDate.plusDays(6);
         for(Appointment appointment : allAppointments) {
-            if(appointment.getStart().getMonthValue() == monthOfYear)
-                monthlyAppointments.add(appointment);
-        }*/
+            LocalDate appointmentDate = appointment.getStart().toLocalDate();
+            if((appointmentDate.isEqual(startDate) || appointmentDate.isAfter(startDate)) && (appointmentDate.isEqual(endDate) || appointmentDate.isBefore(endDate)))
+                weeklyAppointments.add(appointment);
+                }
     }
     
     public static ObservableList<Appointment> getWeeklyAppointments() {

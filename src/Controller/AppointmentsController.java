@@ -251,6 +251,14 @@ public class AppointmentsController implements Initializable {
     @FXML
     private void onWeekTab(Event event) {
         Data.clearWeeklyAppointments();
+        try {
+            AppointmentDAO.selectAppointments();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        Data.filterWeeklyAppointments();
+        weekViewTable.setItems(Data.getWeeklyAppointments());
     }
     
 }
