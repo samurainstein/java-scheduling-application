@@ -63,7 +63,6 @@ public abstract class UserDAO {
                 
                 User user = new User(userID, username, password);
                 Data.addUser(user);
-                System.out.println(user);
             }
         }
         catch(SQLException exception) {

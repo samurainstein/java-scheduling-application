@@ -40,7 +40,6 @@ public abstract class DateAndTime {
         while(zonedStartDateTime.isBefore(zonedEndDateTime) || zonedStartDateTime.isEqual(zonedEndDateTime)) {
             Data.addAppointmentTime(zonedStartDateTime);
             zonedStartDateTime = zonedStartDateTime.plusMinutes(15);
-            System.out.println(zonedStartDateTime.toString());
         }    
     }  
     
@@ -51,7 +50,6 @@ public abstract class DateAndTime {
             zonedDateTime = zonedDateTime.withZoneSameInstant(localZoneID);
             LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
             localZonedDateTime.add(localDateTime);
-            System.out.println(localDateTime);
         }
     }
     
@@ -60,7 +58,6 @@ public abstract class DateAndTime {
         for(LocalDateTime localDateTime : localZonedDateTime) {
             LocalTime localTime = localDateTime.toLocalTime();
             localStartTimes.add(localTime);
-            System.out.println(localTime);
         }
         
         return localStartTimes;
