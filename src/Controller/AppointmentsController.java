@@ -167,6 +167,12 @@ public class AppointmentsController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AppointmentUpdate.fxml"));
             Appointment selectedAppointment = allViewTable.getSelectionModel().getSelectedItem();
+            if(selectedAppointment == null) {
+                selectedAppointment = monthViewTable.getSelectionModel().getSelectedItem();
+                if(selectedAppointment == null) {
+                    selectedAppointment = weekViewTable.getSelectionModel().getSelectedItem();
+                }
+            }
             String pageTitle = PageLoader.getAppointmentUpdateTitle();
             PageLoader.apptUpdatePageLoad(event, loader, pageTitle, selectedAppointment);
             
