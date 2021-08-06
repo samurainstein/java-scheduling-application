@@ -6,8 +6,10 @@
 package Controller;
 
 import DAO.UserDAO;
+import Utilities.Alerts;
 import Utilities.DBConnection;
 import Utilities.DBQuery;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -82,23 +84,13 @@ public class LoginController implements Initializable {
         String password = passwordTF.getText();
         int userID = UserDAO.userLogin(username, password);
         if(userID == 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(alertTitle);
-            alert.setContentText(alertText);
-            alert.showAndWait();
+            Alerts.loginInvalid(alertTitle, alertText);
         }
         
         else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
-            Parent root = loader.load();
-            HomeController homeCont = loader.getController();
-            //homeCont.passUserID(userID);
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Home");
-            stage.setScene(scene);
-            stage.show();
-            
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+            String pageTitle = PageLoader.getHomeTitle();
+            PageLoader.pageLoad(event, root, pageTitle);  
         }
     }
     

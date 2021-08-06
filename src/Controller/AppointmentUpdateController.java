@@ -15,6 +15,7 @@ import Model.Customer;
 import Model.Data;
 import Model.User;
 import Utilities.DateAndTime;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -159,11 +160,8 @@ public class AppointmentUpdateController implements Initializable {
             AppointmentDAO.updateAppointment(appointmentID, title, description, location, type, start, end, customerID, userID, contactID);
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Appointments");
-            stage.show();
+            String pageTitle = PageLoader.getAppointmentsTitle();;
+            PageLoader.pageLoad(event, root, pageTitle);
         }
         catch(SQLException exception) {
             exception.printStackTrace();
@@ -178,10 +176,7 @@ public class AppointmentUpdateController implements Initializable {
     @FXML
     private void onCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Appointments");
-        stage.show();
+        String pageTitle = PageLoader.getAppointmentsTitle();;
+        PageLoader.pageLoad(event, root, pageTitle);
     } 
 }

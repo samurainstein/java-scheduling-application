@@ -9,6 +9,8 @@ import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
 import Model.Appointment;
 import Model.Data;
+import Utilities.Alerts;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -156,71 +158,50 @@ public class AppointmentsController implements Initializable {
     @FXML
     private void onAdd(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load((getClass().getResource("/view/AppointmentAdd.fxml")));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Add Appointment");
-        stage.show();
+        String pageTitle = PageLoader.getAppointmentAddTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
     }
     
     @FXML
     private void onUpdate(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AppointmentUpdate.fxml"));
-            Parent root = loader.load();
-            AppointmentUpdateController updateCont = loader.getController();
-            updateCont.passAppointmentData(allViewTable.getSelectionModel().getSelectedItem());
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Update Appointment");
-            stage.setScene(scene);
-            stage.show();
+            Appointment selectedAppointment = allViewTable.getSelectionModel().getSelectedItem();
+            String pageTitle = PageLoader.getAppointmentUpdateTitle();
+            PageLoader.apptUpdatePageLoad(event, loader, pageTitle, selectedAppointment);
+            
         }
         catch(NullPointerException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Selection");
-            alert.setContentText("Please select an appointment");
-            alert.showAndWait();
+            Alerts.appointmentNullAlert();
         }
     }
 
     @FXML
     private void onDelete(ActionEvent event) throws SQLException {
-        Appointment appointment = allViewTable.getSelectionModel().getSelectedItem();
-        int appointmentID = appointment.getAppointmentID();
-
-        allViewTable.setItems(Data.getAllAppointments());
-        if (appointment == null){
-            Alert invalidAlert = new Alert(Alert.AlertType.ERROR);
-            invalidAlert.setTitle("Invalid Selection");
-            invalidAlert.setContentText("Please select an appointment");
-            invalidAlert.showAndWait();
-            return;
-        }
-        else {
+        try {
+            Appointment appointment = allViewTable.getSelectionModel().getSelectedItem();
+            int appointmentID = appointment.getAppointmentID();
+            allViewTable.setItems(Data.getAllAppointments());
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) { 
                 AppointmentDAO.deleteAppointment(appointmentID);
                 AppointmentDAO.selectAppointments();
                 allViewTable.setItems(Data.getAllAppointments());
-                Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
-                confirmAlert.setTitle("Confirmation");
-                confirmAlert.setContentText("Appointment ID: [" + appointmentID + "] was deleted");
-                confirmAlert.showAndWait();
+                Alerts.appointmentDeleteConfirm(appointmentID);
             }
-        }    
+        }
+        catch(NullPointerException exception) {
+            Alerts.appointmentNullAlert();
+        }
+    }    
         
-    }
 
     @FXML
     private void onHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Home");
-        stage.setScene(scene);
-        stage.show();
+        String pageTitle = PageLoader.getHomeTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
     }
 
     @FXML

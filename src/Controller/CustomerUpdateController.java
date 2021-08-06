@@ -12,6 +12,7 @@ import Model.Country;
 import Model.Customer;
 import Model.Data;
 import Model.Division;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -118,12 +119,10 @@ public class CustomerUpdateController implements Initializable {
             int customerID = Integer.parseInt(idTF.getText());
             
             CustomerDAO.updateCustomer(name, address, postalCode, phone, divisionID, customerID);
+            
             Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Customers");
-            stage.show();
+            String pageTitle = PageLoader.getCustomersTitle();
+            PageLoader.pageLoad(event, root, pageTitle);
         }
         catch(IOException exception) {
             exception.printStackTrace();
@@ -144,11 +143,8 @@ public class CustomerUpdateController implements Initializable {
     @FXML
     private void onCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Customers");
-        stage.show();
+        String pageTitle = PageLoader.getCustomersTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
     }
     
 }

@@ -16,6 +16,7 @@ import Model.Data;
 import Model.User;
 import Utilities.DateAndTime;
 import static Utilities.DateAndTime.convertAppointmentTimes;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -101,7 +102,6 @@ public class AppointmentAddController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) throws IOException {
-        //FIX THIS:
         try {
             String title = titleTF.getText();
             String description = descriptionTA.getText();
@@ -120,11 +120,8 @@ public class AppointmentAddController implements Initializable {
             AppointmentDAO.insertAppointment(title, description, location, type, start, end, customerID, contactID, userID);
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Appointments");
-            stage.setScene(scene);
-            stage.show();
+            String pageTitle = PageLoader.getAppointmentsTitle();
+            PageLoader.pageLoad(event, root, pageTitle);
 
         }
         catch(Exception exception) {
@@ -140,11 +137,8 @@ public class AppointmentAddController implements Initializable {
     @FXML
     private void onCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Appointments");
-        stage.show();
+        String pageTitle = PageLoader.getAppointmentsTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
         
     }
 

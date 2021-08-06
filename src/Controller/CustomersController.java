@@ -10,6 +10,8 @@ import DAO.CustomerDAO;
 import Model.Country;
 import Model.Customer;
 import Model.Data;
+import Utilities.Alerts;
+import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -74,37 +76,26 @@ public class CustomersController implements Initializable {
     @FXML
     private void onAddCustomer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomerAdd.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Add Customer");
-        stage.show();
+        String pageTitle = PageLoader.getCustomerAddTitle();        
+        PageLoader.pageLoad(event, root, pageTitle);
     }
 
     @FXML
     private void onDelete(ActionEvent event) {
-        Customer customer = custTable.getSelectionModel().getSelectedItem();
-        int customerID = customer.getCustomerID();
-        
-        if (customer == null){
-            Alert invalidAlert = new Alert(Alert.AlertType.ERROR);
-            invalidAlert.setTitle("Invalid Selection");
-            invalidAlert.setContentText("Please select a customer");
-            invalidAlert.showAndWait();
-            return;
-        }
-        else {
+        try {
+            Customer customer = custTable.getSelectionModel().getSelectedItem();
+            int customerID = customer.getCustomerID();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) { 
                 CustomerDAO.deleteCustomer(customerID);
                 CustomerDAO.selectCustomers();
                 custTable.setItems(Data.getAllCustomers());
-                Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
-                confirmAlert.setTitle("Confirmation");
-                confirmAlert.setContentText("Customer was deleted");
-                confirmAlert.showAndWait();
+                Alerts.customerDeleteConfirm();
             }
+        }
+        catch(NullPointerException exception) {
+            Alerts.customerNullAlert();
         }    
     }
 
@@ -112,31 +103,20 @@ public class CustomersController implements Initializable {
     private void onUpdate(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CustomerUpdate.fxml"));
-            Parent root = loader.load();
-            CustomerUpdateController updateCont = loader.getController();
-            updateCont.passCustomerData(custTable.getSelectionModel().getSelectedItem());
-            Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Update Customer");
-            stage.setScene(scene);
-            stage.show();
+            Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
+            String pageTitle = PageLoader.getCustomerUpdateTitle();
+            PageLoader.custUpdatePageLoad(event, loader, pageTitle, selectedCustomer);
         }
         catch(NullPointerException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Selection");
-            alert.setContentText("Please select a customer");
-            alert.showAndWait();
+            Alerts.customerNullAlert();
         }
     }
 
     @FXML
     private void onHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Home");
-        stage.setScene(scene);
-        stage.show();
+        String pageTitle = PageLoader.getHomeTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
     }
     
 }
