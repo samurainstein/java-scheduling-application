@@ -81,7 +81,6 @@ public class LoginController implements Initializable {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
         int userID = UserDAO.userLogin(username, password);
-        //System.out.println("The user is " + userID);
         if(userID == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(alertTitle);
@@ -90,12 +89,16 @@ public class LoginController implements Initializable {
         }
         
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
+            Parent root = loader.load();
+            HomeController homeCont = loader.getController();
+            //homeCont.passUserID(userID);
             Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setTitle("Home");
             stage.setScene(scene);
             stage.show();
+            
         }
     }
     

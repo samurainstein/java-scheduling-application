@@ -28,32 +28,6 @@ public abstract class DateAndTime {
     private static ObservableList<LocalTime> localStartTimes = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> localEndTimes = FXCollections.observableArrayList();
     
-    public static void dateTime() {
-        LocalDate japanDate = LocalDate.now();
-        System.out.println(japanDate.toString());
-        
-        LocalTime japanTime = LocalTime.now();
-        System.out.println(japanTime.toString());
-        
-        ZoneId japanZoneID = ZoneId.of("Japan");
-        System.out.println(japanZoneID.toString());
-        
-        ZonedDateTime japanZDT = ZonedDateTime.of(japanDate, japanTime, japanZoneID);
-        System.out.println(japanZDT.toString());
-        
-        ZoneId localZoneID = ZoneId.of(TimeZone.getDefault().getID());
-        System.out.println(localZoneID.toString());
-        
-        Instant japanToUTC = japanZDT.toInstant();
-        System.out.println(japanToUTC.toString());
-        
-        ZonedDateTime japanToLocalZDT = japanZDT.withZoneSameInstant(localZoneID);
-        System.out.println(japanToLocalZDT.toString());
-        
-        ZonedDateTime gmtToLocalZDT = japanToUTC.atZone(localZoneID);
-        System.out.println(gmtToLocalZDT.toString());
-    }
-    
     public static void setAppointmentTimes() {
         Data.clearAppointmentTimes();
         LocalDate startDate = LocalDate.now();

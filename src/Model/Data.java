@@ -38,8 +38,8 @@ public abstract class Data {
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<ZonedDateTime> zonedAppointmentTimes = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> appointmentTimes = FXCollections.observableArrayList();
-
-     
+    private static ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
+    private static int loggedInUserID;
     
     //Methods
     public static ObservableList<Customer> getAllCustomers() {
@@ -231,4 +231,29 @@ public abstract class Data {
         }
         return userObject;
     }
+    
+    public static ObservableList<Appointment> getUserAppointments(int userID) {
+        for(Appointment appointment : allAppointments) {
+            if(appointment.getUserID() == userID)
+                addUserAppointment(appointment);
+        }
+        return userAppointments;
+    }
+    
+    public static void addUserAppointment(Appointment appointment) {
+        userAppointments.add(appointment);
+    }
+    
+    public static void clearUserAppointments() {
+        userAppointments.clear();
+    }
+    
+    public static void setLoggedInUserID(int userID) {
+        loggedInUserID = userID;
+    }
+    
+    public static int getLoggedInUserID() {
+        return loggedInUserID;
+    }
+    
 }

@@ -128,5 +128,21 @@ public abstract class AppointmentDAO {
             exception.printStackTrace();
         }
     }
-    
+    /*
+    public static void getUserAppointments(int userID) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        String sqlStatement = "SELECT Start FROM appointments WHERE User_ID = ?;";
+        DBQuery.setPreparedStatement(conn, sqlStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setInt(1, userID);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        while(resultSet.next()) {
+            Timestamp startTimestamp = resultSet.getTimestamp("Start");
+            LocalDateTime startLDT = startTimestamp.toLocalDateTime();
+            
+        }
+         
+    }
+    */
 }

@@ -37,6 +37,7 @@ public abstract class UserDAO {
             ResultSet resultSet = preparedStatement.getResultSet();
             while(resultSet.next()) {
                 int userID = resultSet.getInt("User_ID");
+                Data.setLoggedInUserID(userID);
                 return userID;
             }
         }
