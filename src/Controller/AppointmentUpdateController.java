@@ -134,6 +134,7 @@ public class AppointmentUpdateController implements Initializable {
     @FXML
     private void onSelectStartTime(ActionEvent event) {
         endTimeCombo.setItems(DateAndTime.getConvertedEndTimes(startTimeCombo.getSelectionModel().getSelectedItem()));
+        endTimeCombo.setValue(null);
     }
 
     @FXML
