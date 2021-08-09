@@ -24,8 +24,6 @@ public abstract class CustomerDAO {
     //Methods
     public static void selectCustomers() {
         try {
-            //if(Data.getAllCustomers().size() > 0)
-            //    return;
             Data.clearCustomers();
             Connection conn = DBConnection.getConnection();
             String sqlStatement = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division, Country "
