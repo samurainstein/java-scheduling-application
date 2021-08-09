@@ -20,10 +20,18 @@ public abstract class Alerts {
     }
     
     public static void appointmentDeleteConfirm(int appointmentID) {
+        //FIX THIS: add type to message
         Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
             confirmAlert.setTitle("Confirmation");
             confirmAlert.setContentText("Appointment ID: [" + appointmentID + "] was deleted");
             confirmAlert.showAndWait();
+    }
+    
+    public static void appointmentOverlap() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Appointment overlap");
+        alert.setContentText("Selected time overlaps with another appointment.  Please select a different time");
+        alert.showAndWait();
     }
     
     public static void appointmentUpcomingAlert() {
