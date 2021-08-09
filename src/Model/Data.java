@@ -39,6 +39,8 @@ public abstract class Data {
     private static ObservableList<ZonedDateTime> zonedAppointmentTimes = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> appointmentTimes = FXCollections.observableArrayList();
     private static ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
+    private static ObservableList<String> appointmentTypes = FXCollections.observableArrayList();
     private static int loggedInUserID;
     
     //Methods
@@ -150,7 +152,8 @@ public abstract class Data {
         LocalDate endDate = startDate.plusDays(6);
         for(Appointment appointment : allAppointments) {
             LocalDate appointmentDate = appointment.getStart().toLocalDate();
-            if((appointmentDate.isEqual(startDate) || appointmentDate.isAfter(startDate)) && (appointmentDate.isEqual(endDate) || appointmentDate.isBefore(endDate)))
+            if((appointmentDate.isEqual(startDate) || appointmentDate.isAfter(startDate)) && 
+                (appointmentDate.isEqual(endDate) || appointmentDate.isBefore(endDate)))
                 weeklyAppointments.add(appointment);
                 }
     }
@@ -256,4 +259,36 @@ public abstract class Data {
         return loggedInUserID;
     }
     
+    public static ObservableList<String> getAllTypes() {
+        return appointmentTypes;
+    }
+    
+    public static void addType(String type) {
+        appointmentTypes.add(type);
+    }
+    
+    public static void clearTypes() {
+        appointmentTypes.clear();
+    }
+    
+    public static boolean checkOverlap(int customerID, LocalTime startTime, LocalTime endTime, LocalDate startDate) {
+        boolean overlap = false;
+        customerAppointments.clear();
+        for(Appointment appointment : allAppointments) {
+            if(appointment.getCustomerID() == customerID) {
+                customerAppointments.add(appointment);
+            }
+        }
+        for(Appointment appointment : customerAppointments) {
+            LocalTime custStartTime = appointment.getStart().toLocalTime();
+            LocalTime custEndTime = appointment.getEnd().toLocalTime();
+            LocalDate custStartDate = appointment.getStart().toLocalDate();
+            if(custStartDate.equals(startDate)) {
+                //FIX THIS
+                //if() {               
+                //}
+            }             
+        }
+    return overlap;
+    }
 }
