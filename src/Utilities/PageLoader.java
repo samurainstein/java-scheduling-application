@@ -33,6 +33,7 @@ public abstract class PageLoader {
     private static String appointmentAddTitle = "Add Appointment";
     private static String customerUpdateTitle = "Update Customer";
     private static String appointmentUpdateTitle = "Update Appointment";
+    private static String reportsTitle = "Reports";
     
     public static void pageLoad(ActionEvent event, Parent root, String pageTitle) {
         Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -94,6 +95,10 @@ public abstract class PageLoader {
     
     public static String getAppointmentUpdateTitle() {
         return appointmentUpdateTitle;
+    }
+    
+    public static String getReportsTitle() {
+        return reportsTitle;
     }
     
 }
