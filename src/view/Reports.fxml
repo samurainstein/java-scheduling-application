@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="Controller.ReportsController">
+   <children>
+      <TabPane layoutX="41.0" layoutY="27.0" prefHeight="325.0" prefWidth="318.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Customer Appointments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="144.0" prefWidth="318.0">
+                     <children>
+                        <VBox alignment="CENTER" layoutX="84.0" layoutY="54.0" spacing="45.0">
+                           <children>
+                              <ComboBox fx:id="typeCombo" prefWidth="150.0" promptText="Select a Type" />
+                              <ComboBox fx:id="monthCombo" prefWidth="150.0" promptText="Select a Month" />
+                              <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRun" prefWidth="75.0" text="Run" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Total Appointments:" />
+                                    <Label fx:id="numberLabel" text="0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Contacts">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="174.0" layoutY="359.0" mnemonicParsing="false" text="Cancel" />
+   </children>
+</AnchorPane>
