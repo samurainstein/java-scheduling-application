@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -114,6 +115,7 @@ public abstract class AppointmentDAO {
     }
     
     public static void deleteAppointment(int appointmentID) throws SQLException {
+        //FIX THIS: Check if there are associated appointments
         try {
             Connection conn = DBConnection.getConnection();
   
@@ -128,21 +130,42 @@ public abstract class AppointmentDAO {
             exception.printStackTrace();
         }
     }
-    /*
-    public static void getUserAppointments(int userID) throws SQLException {
+    public static int getCustomerReport(String type, LocalDateTime start, LocalDateTime end) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sqlStatement = "SELECT Start FROM appointments WHERE User_ID = ?;";
+        int count = 0;
+        String sqlStatement = "SELECT COUNT(*) FROM appointments "
+                            + "WHERE type=? AND "
+                            + "Start BETWEEN ? and ?;";
         DBQuery.setPreparedStatement(conn, sqlStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-        preparedStatement.setInt(1, userID);
+        preparedStatement.setString(1, type);
+        preparedStatement.setTimestamp(2, Timestamp.valueOf(start));
+        preparedStatement.setTimestamp(3, Timestamp.valueOf(end));
         preparedStatement.execute();
         ResultSet resultSet = preparedStatement.getResultSet();
         while(resultSet.next()) {
-            Timestamp startTimestamp = resultSet.getTimestamp("Start");
-            LocalDateTime startLDT = startTimestamp.toLocalDateTime();
-            
+            count = resultSet.getInt("COUNT(*)");
         }
-         
+        return count;
     }
-    */
+    
+    public static void selectAppointmentTypes() throws SQLException {
+        try {
+            Data.clearTypes();
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "SELECT Type from appointments;";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()) {
+                String type = resultSet.getString("Type");
+                Data.addType(type);
+            }
+        }
+        catch(SQLException exception) {
+                exception.printStackTrace();
+        }
+        
+    }
 }
