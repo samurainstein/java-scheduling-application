@@ -90,7 +90,10 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void onReports(ActionEvent event) {
+    private void onReports(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
+        String pageTitle = PageLoader.getReportsTitle();
+        PageLoader.pageLoad(event, root, pageTitle);
     }
 
     @FXML
