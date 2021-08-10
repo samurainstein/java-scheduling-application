@@ -115,7 +115,6 @@ public abstract class AppointmentDAO {
     }
     
     public static void deleteAppointment(int appointmentID) throws SQLException {
-        //FIX THIS: Check if there are associated appointments
         try {
             Connection conn = DBConnection.getConnection();
   

@@ -33,6 +33,13 @@ public abstract class Alerts {
         alert.showAndWait();
     }
     
+    public static void associatedAppointment() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Associated Appointed");
+        alert.setContentText("Please delete all appointments associated with this customer before deleting the customer");
+        alert.showAndWait();
+    }
+    
     public static void appointmentUpcomingAlert() {
         String popupTitle = "Appointment Notification";
         String popupText = "You have an appointment in the next 15 minutes";

@@ -271,6 +271,20 @@ public abstract class Data {
         appointmentTypes.clear();
     }
     
+    public static boolean checkAssociatedAppointments(int customerID) {
+        boolean associated = false;
+        for(Appointment appointment : allAppointments) {
+            if(associated == true) {
+                break;
+            }
+            if(appointment.getCustomerID() == customerID) {
+                associated = true;
+            }
+        }
+        
+        return associated;
+    }
+    
     public static boolean checkOverlap(int customerID, LocalTime startTime, LocalTime endTime, LocalDate startDate) {
         boolean overlap = false;
         customerAppointments.clear();

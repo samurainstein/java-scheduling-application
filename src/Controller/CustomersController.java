@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.CountryDAO;
 import DAO.CustomerDAO;
+import DAO.AppointmentDAO;
 import Model.Country;
 import Model.Customer;
 import Model.Data;
@@ -14,6 +15,7 @@ import Utilities.Alerts;
 import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -81,17 +83,25 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void onDelete(ActionEvent event) {
+    private void onDelete(ActionEvent event) throws SQLException {
         try {
             Customer customer = custTable.getSelectionModel().getSelectedItem();
             int customerID = customer.getCustomerID();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent() && result.get() == ButtonType.OK) { 
-                CustomerDAO.deleteCustomer(customerID);
-                CustomerDAO.selectCustomers();
-                custTable.setItems(Data.getAllCustomers());
-                Alerts.customerDeleteConfirm();
+            AppointmentDAO.selectAppointments();
+            boolean checkAssociated = Data.checkAssociatedAppointments(customerID);
+            if(checkAssociated == true) {
+                Alerts.associatedAppointment();
+            }
+            else {
+            
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.isPresent() && result.get() == ButtonType.OK) { 
+                    CustomerDAO.deleteCustomer(customerID);
+                    CustomerDAO.selectCustomers();
+                    custTable.setItems(Data.getAllCustomers());
+                    Alerts.customerDeleteConfirm();
+                }
             }
         }
         catch(NullPointerException exception) {
