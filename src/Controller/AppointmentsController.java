@@ -187,6 +187,7 @@ public class AppointmentsController implements Initializable {
         try {
             Appointment appointment = allViewTable.getSelectionModel().getSelectedItem();
             int appointmentID = appointment.getAppointmentID();
+            String type = appointment.getType();
             allViewTable.setItems(Data.getAllAppointments());
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
             Optional<ButtonType> result = alert.showAndWait();
@@ -194,7 +195,7 @@ public class AppointmentsController implements Initializable {
                 AppointmentDAO.deleteAppointment(appointmentID);
                 AppointmentDAO.selectAppointments();
                 allViewTable.setItems(Data.getAllAppointments());
-                Alerts.appointmentDeleteConfirm(appointmentID);
+                Alerts.appointmentDeleteConfirm(appointmentID, type);
             }
         }
         catch(NullPointerException exception) {

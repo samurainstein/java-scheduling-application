@@ -19,11 +19,10 @@ public abstract class Alerts {
         alert.showAndWait();
     }
     
-    public static void appointmentDeleteConfirm(int appointmentID) {
-        //FIX THIS: add type to message
+    public static void appointmentDeleteConfirm(int appointmentID, String type) {
         Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
             confirmAlert.setTitle("Confirmation");
-            confirmAlert.setContentText("Appointment ID: [" + appointmentID + "] was deleted");
+            confirmAlert.setContentText("Appointment was deleted\n" + "Appointment ID: " + appointmentID + "\n" + "Appointment Type: " + type);
             confirmAlert.showAndWait();
     }
     
