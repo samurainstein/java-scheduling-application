@@ -14,6 +14,7 @@ import Model.Contact;
 import Model.Customer;
 import Model.Data;
 import Model.User;
+import Utilities.Alerts;
 import Utilities.DateAndTime;
 import Utilities.PageLoader;
 import java.io.IOException;
@@ -157,12 +158,22 @@ public class AppointmentUpdateController implements Initializable {
             int customerID = customerCombo.getValue().getCustomerID();
             int userID = userCombo.getValue().getUserID();
             int contactID = contactCombo.getValue().getContactID();
+            
+            AppointmentDAO.selectAppointments();
+            Boolean overlap = Data.checkOverlap(customerID, startTime, endTime, startDate);
+            if(!overlap) {
 
-            AppointmentDAO.updateAppointment(appointmentID, title, description, location, type, start, end, customerID, userID, contactID);
+                AppointmentDAO.updateAppointment(appointmentID, title, description, location, type, start, end, customerID, userID, contactID);
 
-            Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-            String pageTitle = PageLoader.getAppointmentsTitle();;
-            PageLoader.pageLoad(event, root, pageTitle);
+                Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                String pageTitle = PageLoader.getAppointmentsTitle();;
+                PageLoader.pageLoad(event, root, pageTitle);
+            }
+            else if(overlap) {
+                Alerts.appointmentOverlap();
+            }
+
+            
         }
         catch(SQLException exception) {
             exception.printStackTrace();

@@ -280,15 +280,32 @@ public abstract class Data {
             }
         }
         for(Appointment appointment : customerAppointments) {
+            if(overlap == true) {
+                break;
+            }
             LocalTime custStartTime = appointment.getStart().toLocalTime();
             LocalTime custEndTime = appointment.getEnd().toLocalTime();
             LocalDate custStartDate = appointment.getStart().toLocalDate();
             if(custStartDate.equals(startDate)) {
-                //FIX THIS
-                //if() {               
-                //}
-            }             
-        }
-    return overlap;
+                System.out.println("dates match");
+                if(startTime.equals(custStartTime)  || endTime.equals(custEndTime)) {
+                    System.out.println("if(startTime.equals(custStartTime)  || endTime.equals(custEndTime)) OVERLAP!");
+                    overlap = true;  
+                }
+                else if(startTime.isAfter(custStartTime) && startTime.isBefore(custEndTime)) /*&& endTime.equals(custEndTime))*/  {
+                    System.out.println("if(startTime.isAfter(custStartTime) && startTime.isBefore(custEndTime)) OVERLAP!");
+                    overlap = true;
+                }
+                else if(endTime.isAfter(custStartTime) && endTime.isBefore(custEndTime)) {
+                    System.out.println("if(endTime.isAfter(custStartTime) && endTime.isBefore(custEndTime)) OVERLAP!");
+                    overlap = true;
+                }
+                else {
+                    System.out.println("NO OVERLAP!"); 
+                    overlap = false;
+                }
+            }
+        }             
+        return overlap;
     }
 }
