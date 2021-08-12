@@ -165,6 +165,45 @@ public abstract class AppointmentDAO {
         catch(SQLException exception) {
                 exception.printStackTrace();
         }
-        
+    }
+    
+    public static void selectAppointmentsByContact(int reportContactID) {
+        try {
+            Data.clearAppointmentsByContact();
+            Connection conn = DBConnection.getConnection();
+            String sqlStatement = "SELECT Appointment_ID, Title, Description, Location, Type, Start, " +
+                                "End, Customer_ID, appointments.Contact_ID, User_ID, Contact_Name " +
+                                "FROM appointments, contacts " +
+                                "WHERE appointments.Contact_ID = ? AND appointments.Contact_ID = contacts.Contact_ID " +
+                                "ORDER BY Start;";
+            DBQuery.setPreparedStatement(conn, sqlStatement);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            preparedStatement.setInt(1, reportContactID);
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()) {
+                int appointmentID = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String description = resultSet.getString("Description");
+                String location = resultSet.getString("Location");
+                String type = resultSet.getString("Type");
+                Timestamp startTimestamp = resultSet.getTimestamp("Start");
+                LocalDateTime start = startTimestamp.toLocalDateTime();
+                Timestamp endTimestamp = resultSet.getTimestamp("End");
+                LocalDateTime end = endTimestamp.toLocalDateTime();
+                int customerID = resultSet.getInt("Customer_ID");
+                int contactID = resultSet.getInt("Contact_ID");
+                int userID = resultSet.getInt("User_ID");
+                String contactName = resultSet.getString("Contact_Name");
+
+                Appointment appointment = new Appointment(appointmentID, title, description, 
+                            location, type, start, end, customerID, contactID, userID, contactName);
+
+                Data.addAppointmentByContact(appointment);
+            }
+        }
+        catch(SQLException exception) {
+                exception.printStackTrace();
+        }
     }
 }

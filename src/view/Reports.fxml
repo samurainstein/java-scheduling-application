@@ -5,20 +5,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="Controller.ReportsController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportsController">
    <children>
-      <TabPane layoutX="41.0" layoutY="27.0" prefHeight="325.0" prefWidth="318.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="41.0" layoutY="37.0" prefHeight="328.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Customer Appointments">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="144.0" prefWidth="318.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-border-color: black;">
                      <children>
-                        <VBox alignment="CENTER" layoutX="84.0" layoutY="54.0" spacing="45.0">
+                        <VBox alignment="CENTER" layoutX="285.0" layoutY="29.0" spacing="45.0">
                            <children>
                               <ComboBox fx:id="typeCombo" prefWidth="150.0" promptText="Select a Type" />
                               <ComboBox fx:id="monthCombo" prefWidth="150.0" promptText="Select a Month" />
@@ -26,7 +27,7 @@
                               <HBox spacing="10.0">
                                  <children>
                                     <Label text="Total Appointments:" />
-                                    <Label fx:id="numberLabel" text="0" />
+                                    <Label fx:id="numberLabel" text="--" />
                                  </children>
                               </HBox>
                            </children>
@@ -35,13 +36,47 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Contacts">
+          <Tab onSelectionChanged="#onContactTab" text="Contact Schedule">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-border-color: black;">
+                     <children>
+                        <TableView fx:id="contactTable" prefHeight="244.0" prefWidth="719.0">
+                          <columns>
+                            <TableColumn fx:id="apptIDCol" minWidth="102.0" prefWidth="75.0" text="Appointment ID" />
+                            <TableColumn fx:id="titleCol" minWidth="103.0" prefWidth="75.0" text="Title" />
+                              <TableColumn fx:id="typeCol" minWidth="102.0" prefWidth="75.0" text="Type" />
+                              <TableColumn fx:id="descriptionCol" minWidth="103.0" prefWidth="75.0" text="Description" />
+                              <TableColumn fx:id="startCol" minWidth="102.0" prefWidth="75.0" text="Start" />
+                              <TableColumn fx:id="endCol" minWidth="102.0" prefWidth="75.0" text="End" />
+                              <TableColumn fx:id="custIDCol" minWidth="103.0" prefWidth="75.0" text="Customer ID" />
+                          </columns>
+                        </TableView>
+                        <ComboBox fx:id="contactCombo" layoutX="168.0" layoutY="260.0" prefWidth="150.0" promptText="Select a Contact" />
+                        <Button layoutX="394.0" layoutY="260.0" mnemonicParsing="false" onAction="#onRunContacts" prefWidth="55.0" text="Run" />
+                     </children></AnchorPane>
             </content>
           </Tab>
+            <Tab onSelectionChanged="#onCustByCtryTab" text="Customers by Country">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="contactTable1" prefHeight="244.0" prefWidth="719.0">
+                           <columns>
+                              <TableColumn fx:id="custIDCol2" minWidth="102.0" prefWidth="143.0" text="Customer ID" />
+                              <TableColumn fx:id="custNameCol" minWidth="103.0" prefWidth="142.0" text="Customer Name" />
+                              <TableColumn fx:id="addressCol" minWidth="102.0" prefWidth="143.0" text="Address" />
+                              <TableColumn fx:id="postalCol" minWidth="103.0" prefWidth="142.0" text="Postal Code" />
+                              <TableColumn fx:id="divisionCol" minWidth="102.0" prefWidth="147.0" text="Division" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="countryCombo" layoutX="167.0" layoutY="260.0" prefWidth="150.0" promptText="Select a Country" />
+                        <Button layoutX="394.0" layoutY="260.0" mnemonicParsing="false" onAction="#onRunCustomers" prefWidth="55.0" text="Run" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="174.0" layoutY="359.0" mnemonicParsing="false" text="Cancel" />
+      <Button layoutX="375.0" layoutY="379.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
    </children>
 </AnchorPane>

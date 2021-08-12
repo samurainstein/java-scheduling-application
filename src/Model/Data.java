@@ -41,6 +41,7 @@ public abstract class Data {
     private static ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
     private static ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
     private static ObservableList<String> appointmentTypes = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> appointmentsByContact = FXCollections.observableArrayList();
     private static int loggedInUserID;
     
     //Methods
@@ -321,5 +322,17 @@ public abstract class Data {
             }
         }             
         return overlap;
+    }
+    
+    public static ObservableList<Appointment> getAppointmentsByContact() {
+        return appointmentsByContact;
+    }
+    
+    public static void addAppointmentByContact(Appointment appointment) {
+        appointmentsByContact.add(appointment);
+    }
+    
+    public static void clearAppointmentsByContact() {
+        appointmentsByContact.clear();
     }
 }
