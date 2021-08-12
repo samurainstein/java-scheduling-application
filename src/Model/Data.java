@@ -42,6 +42,7 @@ public abstract class Data {
     private static ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
     private static ObservableList<String> appointmentTypes = FXCollections.observableArrayList();
     private static ObservableList<Appointment> appointmentsByContact = FXCollections.observableArrayList();
+    private static ObservableList<Customer> customersByCountry = FXCollections.observableArrayList();
     private static int loggedInUserID;
     
     //Methods
@@ -55,6 +56,18 @@ public abstract class Data {
      
     public static void clearCustomers() { //add to uml
         allCustomers.clear();
+    }
+    
+    public static ObservableList<Customer> getCustomersByCountry() {
+        return customersByCountry;
+    }
+    
+    public static void addCustomerByCountry(Customer customer) {
+        customersByCountry.add(customer);
+    }
+     
+    public static void clearCustomersByCountry() { //add to uml
+        customersByCountry.clear();
     }
     
     public static ObservableList<Country> getAllCountries() {

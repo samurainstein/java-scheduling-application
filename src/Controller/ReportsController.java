@@ -7,8 +7,12 @@ package Controller;
 
 import DAO.AppointmentDAO;
 import DAO.ContactDAO;
+import DAO.CountryDAO;
+import DAO.CustomerDAO;
 import Model.Data;
 import Model.Contact;
+import Model.Country;
+import Model.Customer;
 import Model.Appointment;
 import Utilities.DateAndTime;
 import Utilities.PageLoader;
@@ -71,6 +75,20 @@ public class ReportsController implements Initializable {
     private TableColumn<Appointment, Integer> custIDCol;
     @FXML
     private ComboBox<Contact> contactCombo;
+    @FXML
+    private TableView<Customer> customerTable;
+    @FXML
+    private TableColumn<Customer, Integer> custIDCol2;
+    @FXML
+    private TableColumn<Customer, String> custNameCol;
+    @FXML
+    private TableColumn<Customer, String> addressCol;
+    @FXML
+    private TableColumn<Customer, String> postalCol;
+    @FXML
+    private TableColumn<Customer, String> divisionCol;
+    @FXML
+    private ComboBox<Country> countryCombo;
 
     /**
      * Initializes the controller class.
@@ -112,7 +130,7 @@ public class ReportsController implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("End"));
-        custIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID")); 
+        custIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
         
         ContactDAO.selectContacts();
         contactCombo.setItems(Data.getAllContacts());
@@ -123,5 +141,24 @@ public class ReportsController implements Initializable {
         int contactID = contactCombo.getSelectionModel().getSelectedItem().getContactID();
         AppointmentDAO.selectAppointmentsByContact(contactID);
         contactTable.setItems(Data.getAppointmentsByContact());
+    }
+
+    @FXML
+    private void onRunCustomers(ActionEvent event) {
+        int countryID = countryCombo.getSelectionModel().getSelectedItem().getCountryID();
+        CustomerDAO.selectCustomersByCountry(countryID);
+        customerTable.setItems(Data.getCustomersByCountry());
+    }
+
+    @FXML
+    private void onCustByCtryTab(Event event) {
+        custIDCol2.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("CustomerName"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("CustomerAddress"));
+        postalCol.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        
+        CountryDAO.selectCountries();
+        countryCombo.setItems(Data.getAllCountries());
     }
 }

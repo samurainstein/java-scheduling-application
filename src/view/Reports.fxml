@@ -60,7 +60,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="contactTable1" prefHeight="244.0" prefWidth="719.0">
+                        <TableView fx:id="customerTable" prefHeight="244.0" prefWidth="719.0">
                            <columns>
                               <TableColumn fx:id="custIDCol2" minWidth="102.0" prefWidth="143.0" text="Customer ID" />
                               <TableColumn fx:id="custNameCol" minWidth="103.0" prefWidth="142.0" text="Customer Name" />
