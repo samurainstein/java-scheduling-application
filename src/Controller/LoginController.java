@@ -6,11 +6,14 @@
 package Controller;
 
 import DAO.UserDAO;
+import Utilities.ActivityLog;
 import Utilities.Alerts;
 import Utilities.DBConnection;
 import Utilities.DBQuery;
 import Utilities.PageLoader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,9 +88,11 @@ public class LoginController implements Initializable {
         int userID = UserDAO.userLogin(username, password);
         if(userID == 0) {
             Alerts.loginInvalid(alertTitle, alertText);
+            ActivityLog.loginAttempt(userID, username);
         }
         
         else {
+            ActivityLog.loginAttempt(userID, username);
             Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
             String pageTitle = PageLoader.getHomeTitle();
             PageLoader.pageLoad(event, root, pageTitle);  
