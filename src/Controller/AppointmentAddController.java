@@ -44,9 +44,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Add Appointment screen
+ * @author Eric Matelyan
  */
 public class AppointmentAddController implements Initializable {
 
@@ -101,7 +100,15 @@ public class AppointmentAddController implements Initializable {
         startTimeCombo.setPromptText("Select a start time");
     }    
 
+    /**
+     * Method for saving new appointment info to the database. 
+     * @param event Event object created by the Save button
+     */
     @FXML
+    /**
+     * Method for saving new appointment info to the database. 
+     * @param event Event object created by the Save button
+     */
     private void onSave(ActionEvent event) throws IOException {
         try {
             String title = titleTF.getText();
@@ -119,7 +126,6 @@ public class AppointmentAddController implements Initializable {
             int userID = userCombo.getValue().getUserID();
             
             AppointmentDAO.selectAppointments();
-            //FIX THIS: check overlap for Contacts as well
             Boolean overlap = Data.checkOverlap(customerID, startTime, endTime, startDate);
             if(!overlap) {
 
@@ -143,6 +149,10 @@ public class AppointmentAddController implements Initializable {
 
     }
 
+    /**
+     * Method for clearing all fields and selections on the screen. 
+     * @param event Event object created by the Clear button
+     */
     @FXML
     private void onClear(ActionEvent event) {
         titleTF.setText("");
@@ -158,6 +168,10 @@ public class AppointmentAddController implements Initializable {
         userCombo.setValue(null);
     }
 
+    /**
+     * Method for returning to the main appointments screen. 
+     * @param event Event object created by the Cancel button
+     */
     @FXML
     private void onCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
@@ -166,12 +180,20 @@ public class AppointmentAddController implements Initializable {
         
     }
 
+    /**
+     * Method for filtering out end times, based on the selected start time. 
+     * @param event Event object created by selecting a start time
+     */
     @FXML
     private void onSelectStartTime(ActionEvent event) {
         endTimeCombo.setItems(DateAndTime.getConvertedEndTimes(startTimeCombo.getSelectionModel().getSelectedItem()));
         endTimeCombo.setPromptText("Select an end time");
     }
-
+    
+    /**
+     * Method for setting the end date to the same as the start date. 
+     * @param event Event object created when the start date is selected
+     */
     @FXML
     private void onSelectStartDate(ActionEvent event) {
         endDatePick.setValue(startDatePick.getValue());
