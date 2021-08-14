@@ -119,6 +119,7 @@ public class AppointmentAddController implements Initializable {
             int userID = userCombo.getValue().getUserID();
             
             AppointmentDAO.selectAppointments();
+            //FIX THIS: check overlap for Contacts as well
             Boolean overlap = Data.checkOverlap(customerID, startTime, endTime, startDate);
             if(!overlap) {
 
@@ -133,14 +134,28 @@ public class AppointmentAddController implements Initializable {
             }
 
         }
-        catch(Exception exception) {
+        catch(SQLException exception) {
             exception.printStackTrace();
+        }
+        catch(NullPointerException exception) {
+            Alerts.invalidFields();
         }
 
     }
 
     @FXML
     private void onClear(ActionEvent event) {
+        titleTF.setText("");
+        descriptionTA.setText("");
+        locationTF.setText("");
+        typeTF.setText("");
+        contactCombo.setValue(null);
+        startDatePick.setValue(null);
+        endDatePick.setValue(null);
+        startTimeCombo.setValue(null);
+        endTimeCombo.setValue(null);
+        customerCombo.setValue(null);
+        userCombo.setValue(null);
     }
 
     @FXML
