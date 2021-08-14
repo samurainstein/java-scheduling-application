@@ -63,6 +63,20 @@ public abstract class Alerts {
         confirmAlert.showAndWait();
     }
     
+    public static void countryOrDivisionNullAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Selection");
+        alert.setContentText("Please select a country and division");
+        alert.showAndWait();
+    }
+    
+    public static void invalidFields() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Insufficient Information");
+        alert.setContentText("Please fill in all fields");
+        alert.showAndWait();
+    }
+    
     public static void loginInvalid(String alertTitle, String alertText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(alertTitle);
