@@ -12,6 +12,7 @@ import Model.Country;
 import Model.Customer;
 import Model.Data;
 import Model.Division;
+import Utilities.Alerts;
 import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
@@ -126,6 +127,9 @@ public class CustomerUpdateController implements Initializable {
         }
         catch(IOException exception) {
             exception.printStackTrace();
+        }
+        catch(NullPointerException exception) {
+            Alerts.countryOrDivisionNullAlert();
         }
     }
 
