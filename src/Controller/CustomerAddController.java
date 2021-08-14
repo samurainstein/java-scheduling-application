@@ -11,6 +11,7 @@ import DAO.DivisionDAO;
 import Model.Country;
 import Model.Data;
 import Model.Division;
+import Utilities.Alerts;
 import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +61,7 @@ public class CustomerAddController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
+        //FIX THIS: do all fields need to be filled in?
         try {
             String name = nameTF.getText();
             String phone = phoneTF.getText();
@@ -75,6 +77,9 @@ public class CustomerAddController implements Initializable {
         }
         catch(IOException exception) {
             exception.printStackTrace();
+        }
+        catch(NullPointerException exception) {
+            Alerts.countryOrDivisionNullAlert();
         }
     }
 
