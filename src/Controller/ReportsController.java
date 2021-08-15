@@ -43,9 +43,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Reports screen
+ * @author Eric Matelyan
  */
 public class ReportsController implements Initializable {
 

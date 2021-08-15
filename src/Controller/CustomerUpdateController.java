@@ -31,9 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Update Customer screen
+ * @author Eric Matelyan
  */
 public class CustomerUpdateController implements Initializable {
 

@@ -35,9 +35,8 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Customers screen
+ * @author Eric Matelyan
  */
 public class CustomersController implements Initializable {
 

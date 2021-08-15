@@ -34,9 +34,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Home screen
+ * @author Eric Matelyan
  */
 public class HomeController implements Initializable {
 

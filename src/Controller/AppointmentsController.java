@@ -36,9 +36,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Appointments screen
+ * @author Eric Matelyan
  */
 public class AppointmentsController implements Initializable {
 

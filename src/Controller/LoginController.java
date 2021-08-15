@@ -39,9 +39,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Login screen
+ * @author Eric Matelyan
  */
 public class LoginController implements Initializable {
 

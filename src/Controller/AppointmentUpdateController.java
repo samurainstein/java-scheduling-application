@@ -40,9 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Eric
+ * This class handles events on the Update Appointment screen
+ * @author Eric Matelyan
  */
 public class AppointmentUpdateController implements Initializable {
 
