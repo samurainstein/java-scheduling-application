@@ -24,11 +24,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * This class handles events on the Update Customer screen
@@ -58,8 +55,7 @@ public class CustomerUpdateController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
-    
-    
+
     public void passCustomerData(Customer customer) {
         idTF.setText(Integer.toString(customer.getCustomerID()));
         nameTF.setText(customer.getCustomerName());
@@ -67,7 +63,6 @@ public class CustomerUpdateController implements Initializable {
         addressTF.setText(customer.getCustomerAddress());
         postalTF.setText(customer.getPostalCode());
         String divisionName = customer.getDivision();
-        //Why does this need to have an initial value?
         int countryID = 0;
         
         ObservableList<Division> allDivisions = FXCollections.observableArrayList();
@@ -110,11 +105,16 @@ public class CustomerUpdateController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
+        String name = nameTF.getText();
+        String phone = phoneTF.getText();
+        String address = addressTF.getText();
+        String postalCode = postalTF.getText();
+        if(name.isBlank() || phone.isBlank() || address.isBlank() || postalCode.isBlank()) {
+            Alerts.invalidFields();
+            return;
+        }
         try {
-            String name = nameTF.getText();
-            String phone = phoneTF.getText();
-            String address = addressTF.getText();
-            String postalCode = postalTF.getText();
+            
             int divisionID = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
             int customerID = Integer.parseInt(idTF.getText());
             

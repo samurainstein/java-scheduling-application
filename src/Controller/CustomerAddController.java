@@ -16,18 +16,13 @@ import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * This class handles events on the Add Customer screen
@@ -60,12 +55,16 @@ public class CustomerAddController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
-        //FIX THIS: do all fields need to be filled in?
+        String name = nameTF.getText();
+        String phone = phoneTF.getText();
+        String address = addressTF.getText();
+        String postalCode = postalTF.getText();
+        if(name.isBlank() || phone.isBlank() || address.isBlank() || postalCode.isBlank()) {
+            Alerts.invalidFields();
+            return;
+        }
         try {
-            String name = nameTF.getText();
-            String phone = phoneTF.getText();
-            String address = addressTF.getText();
-            String postalCode = postalTF.getText();
+            
             int divisionID = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
             
             CustomerDAO.insertCustomer(name, address, postalCode, phone, divisionID);

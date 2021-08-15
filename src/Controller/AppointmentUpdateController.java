@@ -24,20 +24,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * This class handles events on the Update Appointment screen
@@ -139,12 +134,17 @@ public class AppointmentUpdateController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) throws SQLException, IOException {
+        
+        String title = titleTF.getText();
+        String description = descriptionTA.getText();
+        String location = locationTF.getText();
+        String type = typeTF.getText();
+        if(title.isBlank() || description.isBlank() || location.isBlank() || type.isBlank()) {
+            Alerts.invalidFields();
+            return;
+        }
         try {
             int appointmentID = Integer.parseInt(idTF.getText());
-            String title = titleTF.getText();
-            String description = descriptionTA.getText();
-            String location = locationTF.getText();
-            String type = typeTF.getText();
 
             LocalDate startDate = startDatePick.getValue();
             LocalTime startTime = startTimeCombo.getValue();

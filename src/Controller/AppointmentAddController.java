@@ -9,14 +9,12 @@ import DAO.AppointmentDAO;
 import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
-import Model.Appointment;
 import Model.Contact;
 import Model.Customer;
 import Model.Data;
 import Model.User;
 import Utilities.Alerts;
 import Utilities.DateAndTime;
-import static Utilities.DateAndTime.convertAppointmentTimes;
 import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
@@ -24,24 +22,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * This class handles events on the Add Appointment screen
@@ -110,11 +100,16 @@ public class AppointmentAddController implements Initializable {
      * @param event Event object created by the Save button
      */
     private void onSave(ActionEvent event) throws IOException {
+        String title = titleTF.getText();
+        String description = descriptionTA.getText();
+        String location = locationTF.getText();
+        String type = typeTF.getText();
+        if(title.isBlank() || description.isBlank() || location.isBlank() || type.isBlank()) {
+            Alerts.invalidFields();
+            return;
+        }
         try {
-            String title = titleTF.getText();
-            String description = descriptionTA.getText();
-            String location = locationTF.getText();
-            String type = typeTF.getText();
+            
             LocalDate startDate = startDatePick.getValue();
             LocalTime startTime = startTimeCombo.getValue();
             LocalDate endDate = endDatePick.getValue();
