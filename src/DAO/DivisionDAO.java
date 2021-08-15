@@ -15,10 +15,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Eric
+ * This class is used to send queries to the first_level_divisions table in the database
+ * @author Eric Matelyan
  */
 public abstract class DivisionDAO {
+    /**
+     * Select statement for all rows in the first_level_divisions table. 
+     * 
+     */
     public static void selectDivisions() {
         try {
             Data.clearDivisions();
@@ -44,6 +48,10 @@ public abstract class DivisionDAO {
         }
     }   
     
+    /**
+     * Select statement for all rows in the first_level_divisions table that are associated with a specific country ID. 
+     * @param filterID Country ID to be searched for
+     */
     public static void selectFilteredDivisions(int filterID) {
         try {
             Data.clearFilteredDivisions();

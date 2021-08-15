@@ -15,13 +15,19 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 /**
- *
- * @author Eric
+ * This class is used to send queries to the users table in the database
+ * @author Eric Matelyan
  */
 public abstract class UserDAO {
        
-    //Methods
+    /**
+     * Checks if username/password pair exists in the users table. 
+     * @param username Username to be checked
+     * @param password Password to be checked
+     * @return Returns the User ID if found.  Otherwise, returns 0. 
+     */
     public static int userLogin(String username, String password) {
         try {           
             Connection conn = DBConnection.getConnection();
@@ -47,6 +53,10 @@ public abstract class UserDAO {
         return 0;
     }
     
+    /**
+     * Select statement for all rows in the users table. 
+     * 
+     */
     public static void selectUsers() {
         try {
             Data.clearUsers();

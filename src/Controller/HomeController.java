@@ -42,7 +42,6 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label apptNoticeLabel;
-    
     private int userID;
     private ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
     

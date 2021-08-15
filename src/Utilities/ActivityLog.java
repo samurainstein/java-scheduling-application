@@ -12,17 +12,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- *
- * @author Eric
+ * This class is used to write login activity to a .txt file
+ * @author Eric Matelyan
  */
 public abstract class ActivityLog {
+    /**
+     * Method for documenting login attempts, including a timestamp, user info, and whether login was successful or not. 
+     * @param userID Used to check if username was found
+     * @param username Username that attempted to login
+     * @throws IOException 
+     */
     public static void loginAttempt(int userID, String username) throws IOException {
         //Lambda Expression
         CurrentTimeInterface currentTime = () -> LocalTime.now();
         LocalTime time = currentTime.getCurrentTime();
         if(userID == 0) {
             LocalDate date = LocalDate.now();
-            //LocalTime time = LocalTime.now();
             String fileName = "login_activity.txt";
             FileWriter fileWriter = new FileWriter(fileName, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -31,7 +36,6 @@ public abstract class ActivityLog {
         }
         else {
             LocalDate date = LocalDate.now();
-            //LocalTime time = LocalTime.now();
             String fileName = "login_activity.txt";
             FileWriter fileWriter = new FileWriter(fileName, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);

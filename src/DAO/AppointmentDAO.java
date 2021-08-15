@@ -18,10 +18,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- *
- * @author Eric
+ * This class is used to send queries to the appointments table in the database
+ * @author Eric Matelyan
  */
 public abstract class AppointmentDAO {
+    
+    /**
+     * Select statement for all rows in the appointments table. 
+     * 
+     */
     public static void selectAppointments() throws SQLException {
         try {
             Data.clearAppointments();
@@ -61,6 +66,18 @@ public abstract class AppointmentDAO {
         
     }
     
+    /**
+     * Insert statement for adding a row to the appointments table. 
+     * @param title Title data for the new appointment
+     * @param description Description data for the new appointment
+     * @param location Location data for the new appointment
+     * @param type Type data for the new appointment
+     * @param start Start timestamp for the new appointment
+     * @param end End timestamp for the new appointment
+     * @param customerID Associated customer ID for the new appointment
+     * @param userID Associated User ID for the new appointment
+     * @param contactID Associated Contact ID for the new appointment
+     */
     public static void insertAppointment(String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
             try {
                 Connection conn = DBConnection.getConnection();
@@ -86,6 +103,19 @@ public abstract class AppointmentDAO {
             
     }
     
+    /**
+     * Set statement for updating a row in the appointments table. 
+     * @param appointmentID Appointment ID to be updated
+     * @param title Updated title data for the row
+     * @param description Updated description data for the row
+     * @param location Updated location data for the row
+     * @param type Updated type data for the row
+     * @param start Updated start timestamp for the row
+     * @param end Updated end timestamp for the row
+     * @param customerID Updated associated customer ID for the row
+     * @param userID Updated associated user ID for the row
+     * @param contactID Updated associated contact ID for the row
+     */
     public static void updateAppointment(int appointmentID, String title, String description, String location, String type,
                                             LocalDateTime start, LocalDateTime end, int customerID, int userID, 
                                             int contactID) throws SQLException {
@@ -114,6 +144,10 @@ public abstract class AppointmentDAO {
         }
     }
     
+    /**
+     * Delete statement for a row in the appointments table. 
+     * @param appointmentID Appointment ID to be deleted
+     */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
             Connection conn = DBConnection.getConnection();
@@ -129,6 +163,13 @@ public abstract class AppointmentDAO {
             exception.printStackTrace();
         }
     }
+    
+    /**
+     * Select statement for all rows in the appointments table with a specified type, during a specific month. 
+     * @param type Type of appointments to be queried
+     * @param start Start timestamp for designated month
+     * @param end End timestamp for designated month
+     */
     public static int getCustomerReport(String type, LocalDateTime start, LocalDateTime end) throws SQLException {
         Connection conn = DBConnection.getConnection();
         int count = 0;
@@ -148,6 +189,10 @@ public abstract class AppointmentDAO {
         return count;
     }
     
+    /**
+     * Select statement to get all of the different types of appointments in the appointments table. 
+     * 
+     */
     public static void selectAppointmentTypes() throws SQLException {
         try {
             Data.clearTypes();
@@ -167,6 +212,10 @@ public abstract class AppointmentDAO {
         }
     }
     
+    /**
+     * Select statement for all rows in the appointments table with a certain contact ID associated with them.
+     * @param reportContactID Contact ID to be searched for
+     */
     public static void selectAppointmentsByContact(int reportContactID) {
         try {
             Data.clearAppointmentsByContact();

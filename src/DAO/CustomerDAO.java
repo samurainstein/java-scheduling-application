@@ -17,11 +17,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author Eric
+ * This class is used to send queries to the customers table in the database
+ * @author Eric Matelyan
  */
 public abstract class CustomerDAO {
-    //Methods
+    /**
+     * Select statement for all rows in the customers table. 
+     * 
+     */
     public static void selectCustomers() {
         try {
             Data.clearCustomers();
@@ -52,7 +55,14 @@ public abstract class CustomerDAO {
             exception.printStackTrace();
         }
     }
-    
+    /**
+     * Insert statement for adding a row to the customers table. 
+     * @param name Name data for the new customer
+     * @param address Address data for the new customer
+     * @param postalCode Postal Code data for the new customer
+     * @param phone Phone data for the new customer
+     * @param divisionID Division ID for the new customer
+     */
     public static void insertCustomer(String name, String address, String postalCode, String phone, int divisionID) {
         try {
             Connection conn = DBConnection.getConnection();
@@ -72,7 +82,15 @@ public abstract class CustomerDAO {
             exception.printStackTrace();
         }
     }
-    
+    /**
+     * Set statement for updating a row in the customers table. 
+     * @param name Updated name data for the new customer
+     * @param address Updated address data for the new customer
+     * @param postalCode Updated postal Code data for the new customer
+     * @param phone Updated phone data for the new customer
+     * @param divisionID Updated Division ID for the new customer
+     * @param customerID Customer ID to be updated
+     */
     public static void updateCustomer(String name, String address, String postalCode, String phone, int divisionID, int customerID) {
         try {
             Connection conn = DBConnection.getConnection();
@@ -94,6 +112,10 @@ public abstract class CustomerDAO {
         }
     }
     
+    /**
+     * Delete statement for a row in the customers table. 
+     * @param customerID Customer ID to be deleted
+     */
     public static void deleteCustomer(int customerID) {
         try {
             Connection conn = DBConnection.getConnection();
@@ -110,6 +132,10 @@ public abstract class CustomerDAO {
         }
     }
     
+    /**
+     * Select statement for all rows in the customers table with a specific associated Country ID. 
+     * @param reportCountryID Country ID to be searched for
+     */
     public static void selectCustomersByCountry(int reportCountryID) {
         try {
             Data.clearCustomersByCountry();

@@ -20,18 +20,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
+ * This class is used to execute SQL statements on the database. 
  * @author Eric
  */
 public abstract class DateAndTime {
-    //Members
+    
     private static ZoneId localZoneID = ZoneId.of(TimeZone.getDefault().getID());
     private static ObservableList<LocalDateTime> localZonedDateTime = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> localStartTimes = FXCollections.observableArrayList();
     private static ObservableList<LocalTime> localEndTimes = FXCollections.observableArrayList();
     private static ObservableList<Month> allMonths = FXCollections.observableArrayList();
     
-    
+    /**
+     * This method builds a list of 15 minute interval appointment times, based on the office EST business hours. 
+     */
     public static void setAppointmentTimes() {
         Data.clearAppointmentTimes();
         LocalDate startDate = LocalDate.now();
@@ -47,6 +49,9 @@ public abstract class DateAndTime {
         }    
     }  
     
+    /**
+     * This method converts the date/time of appointments to the local date/time of the user when they are using the application. 
+     */
     public static void convertAppointmentTimes() {
         localZonedDateTime.clear();
         ObservableList<ZonedDateTime> estZonedAppointmentTimes = Data.getAllAppointmentTimes();
@@ -57,6 +62,10 @@ public abstract class DateAndTime {
         }
     }
     
+    /**
+     * This method returns a list of appointment start times, based on the user's time zone. 
+     * @return Returns an observable list of start times
+     */
     public static ObservableList<LocalTime> getConvertedStartTimes() {
         localStartTimes.clear();
         for(LocalDateTime localDateTime : localZonedDateTime) {
@@ -67,6 +76,11 @@ public abstract class DateAndTime {
         return localStartTimes;
     }
     
+    /**
+     * This method returns a list of appointment end times, based on the user's time zone and selected start time. 
+     * @param startTime The start time of the appointment
+     * @return Returns an observable list of end times
+     */
     public static ObservableList<LocalTime> getConvertedEndTimes(LocalTime startTime) {
         localEndTimes.clear();
         for(LocalTime endTime : localStartTimes) {
@@ -77,6 +91,11 @@ public abstract class DateAndTime {
         return localEndTimes;    
     }
     
+    /**
+     * This method gets the start date/time of a designated month. 
+     * @param month The month that is being specified
+     * @return Returns a LocalDateTime object of the beginning of the specified month
+     */
     public static LocalDateTime getMonthStart(Month month) {
         LocalDateTime startLDT = null;
         int year = LocalDateTime.now().getYear();
@@ -135,6 +154,11 @@ public abstract class DateAndTime {
         return startLDT;
     }
     
+    /**
+     * This method gets the end date/time of a designated month. 
+     * @param month The month that is being specified
+     * @return Returns a LocalDateTime object of the end of the specified month
+     */
     public static LocalDateTime getMonthEnd(Month month) {
         LocalDateTime endLDT = null;
         int year = LocalDateTime.now().getYear();
@@ -217,6 +241,10 @@ public abstract class DateAndTime {
         return endLDT;
     }
     
+    /**
+     * This method returns a list of all of the months in a year. 
+     * @return Returns an observable list of all months
+     */
     public static ObservableList<Month> getAllMonths() {
         allMonths.clear();
         for(Month month : Month.values()) {

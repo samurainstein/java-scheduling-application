@@ -16,11 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Eric
+ * This class is used to send queries to the countries table in the database
+ * @author Eric Matelyan
  */
 public abstract class CountryDAO {
-    //Methods
+    /**
+     * Select statement for all rows in the countries table. 
+     * 
+     */
     public static void selectCountries() {
         try {
             Data.clearCountries();

@@ -6,28 +6,44 @@
 package Model;
 
 /**
- *
- * @author Eric
+ * This class defines the attributes and methods of Country objects
+ * @author Eric Matelyan
  */
 public class Country {
-    //Members
+    
     private int countryID;
     private String countryName;
     
-    //Methods
+    /**
+     * Constructor for Country objects. 
+     * @param countryID ID of country
+     * @param countryName Name of country
+     */
     public Country(int countryID, String countryName) {
         this.countryID = countryID;
         this.countryName = countryName;
     }
     
+    /**
+     * Method for getting a country ID. 
+     * @return Returns a country ID
+     */
     public int getCountryID() {
         return countryID;
     }
     
+    /**
+     * Method for getting a country's name. 
+     * @return Returns a country name
+     */
     public String getCountryName() {
         return countryName;
     }
     
+    /**
+     * Overrides toString() method, and returns a country name. 
+     * @return Returns a country name
+     */
     @Override
     public String toString() {
         return (countryName);

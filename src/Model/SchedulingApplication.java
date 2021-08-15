@@ -27,14 +27,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Eric
- */
+    /**
+     * This class creates a schedule management application. 
+     * @author Eric Matelyan
+     */
 public class SchedulingApplication extends Application {
         
     /**
+     * This is the main method.This is the first method that runs when you run the program.
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         DBConnection.startConnection();
@@ -46,6 +49,9 @@ public class SchedulingApplication extends Application {
         DBConnection.closeConnection();
     }
     
+    /**
+     * Overrides start() method.Loads the first screen of the application.  
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));

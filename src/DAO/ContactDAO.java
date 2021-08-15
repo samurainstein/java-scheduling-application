@@ -15,11 +15,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Eric
+ * This class is used to send queries to the contacts table in the database
+ * @author Eric Matelyan
  */
 public abstract class ContactDAO {
     
+    /**
+     * Select statement for all rows in the contacts table. 
+     * 
+     */
     public static void selectContacts() throws SQLException {
         try {
             Data.clearContacts();

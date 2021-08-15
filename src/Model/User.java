@@ -6,30 +6,17 @@
 package Model;
 
 /**
- *
- * @author Eric
+ * This class defines the attributes and methods of User objects
+ * @author Eric Matelyan
  */
 public class User {
-    
-    //Members
-    /**
-     * This variable holds the user's userID. 
-     */
+
     private int userID;
-    
-    /**
-     * This variable holds the user's username. 
-     */
     private String username;
-    
-    /**
-     * This variable holds the user's password. 
-     */
     private String password;
 
-    //Methods
     /**
-     * This is the constructor for making a user object. 
+     * Constructor for user objects. 
      * @param userID The userID to be assigned to the user object
      * @param username The username to be assigned to the user object
      * @param password The password to be assigned to the user object
@@ -49,7 +36,7 @@ public class User {
     }
     
     /**
-     * This method returns a usernname. 
+     * This method returns a username. 
      * @return Returns the user's username
      */
     public String getUsername() {
@@ -64,6 +51,10 @@ public class User {
         return password;
     }
     
+    /**
+     * Overrides toString() method, and returns a formatted ID and username. 
+     * @return Returns a formatted ID and username
+     */
     @Override
     public String toString() {
         return ("[" + userID + "] " + username);

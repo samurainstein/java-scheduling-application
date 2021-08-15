@@ -16,14 +16,11 @@ import java.sql.PreparedStatement;
  */
 public class DBQuery {
     
-    /**
-     * This variable holds a reference to a statement. 
-     */
     private static PreparedStatement statement;
     
     /**
      * This method is used to create a prepared statement object. 
-     * @param conn Receives a connection object
+     * @param conn Connection object that is passed to the method
      */
     public static void setPreparedStatement(Connection conn, String sqlStatement) throws SQLException {
         statement = conn.prepareStatement(sqlStatement);       
