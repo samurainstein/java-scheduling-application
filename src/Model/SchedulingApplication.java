@@ -6,21 +6,10 @@
 package Model;
 
 import Utilities.DBConnection;
-import Utilities.DBQuery;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.PreparedStatement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.TimeZone;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -43,7 +32,8 @@ public class SchedulingApplication extends Application {
         DBConnection.startConnection();
         Connection conn = DBConnection.getConnection();
 
-        //Locale.setDefault(new Locale("fr"));    
+        //Locale.setDefault(new Locale("fr"));  
+        //TimeZone.setDefault(TimeZone.getTimeZone("Japan"));
         
         launch(args);
         DBConnection.closeConnection();
@@ -51,6 +41,8 @@ public class SchedulingApplication extends Application {
     
     /**
      * Overrides start() method.Loads the first screen of the application.  
+     * @param stage
+     * @throws java.lang.Exception
      */
     @Override
     public void start(Stage stage) throws Exception {
