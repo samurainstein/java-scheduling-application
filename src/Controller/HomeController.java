@@ -46,7 +46,12 @@ public class HomeController implements Initializable {
     
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class. 
+     * <p>
+     * Contains a lambda expression that creates an object that implements the AppointmentAlertInterface. 
+     * The expression defines the displayAlert() method, which is used to generate an alert if the logged in user 
+     * has an appointment within 15 minutes of logging in. 
+     * </p>
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -18,6 +18,11 @@ import java.time.LocalTime;
 public abstract class ActivityLog {
     /**
      * Method for documenting login attempts, including a timestamp, user info, and whether login was successful or not. 
+     * <p>
+     * Contains a lambda expression that creates an object that implements the CurrentTimeInterface. 
+     * The expression defines the getCurrentTime() method, which is used to create a LocalTime object of the current time. 
+     * The LocalTime Object is used as a timestamp for the activity log whenever a user tries to login. 
+     * </p>
      * @param userID Used to check if username was found
      * @param username Username that attempted to login
      * @throws IOException 
