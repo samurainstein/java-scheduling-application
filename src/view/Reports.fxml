@@ -42,13 +42,13 @@
                      <children>
                         <TableView fx:id="contactTable" prefHeight="244.0" prefWidth="719.0">
                           <columns>
-                            <TableColumn fx:id="apptIDCol" minWidth="102.0" prefWidth="75.0" text="Appointment ID" />
+                            <TableColumn fx:id="apptIDCol" minWidth="75.0" prefWidth="50.0" text="Appt ID" />
                             <TableColumn fx:id="titleCol" minWidth="103.0" prefWidth="75.0" text="Title" />
                               <TableColumn fx:id="typeCol" minWidth="102.0" prefWidth="75.0" text="Type" />
                               <TableColumn fx:id="descriptionCol" minWidth="103.0" prefWidth="75.0" text="Description" />
-                              <TableColumn fx:id="startCol" minWidth="102.0" prefWidth="75.0" text="Start" />
-                              <TableColumn fx:id="endCol" minWidth="102.0" prefWidth="75.0" text="End" />
-                              <TableColumn fx:id="custIDCol" minWidth="103.0" prefWidth="75.0" text="Customer ID" />
+                              <TableColumn fx:id="startCol" minWidth="130.0" prefWidth="75.0" text="Start" />
+                              <TableColumn fx:id="endCol" minWidth="130.0" prefWidth="75.0" text="End" />
+                              <TableColumn fx:id="custIDCol" minWidth="75.0" prefWidth="50.0" text="Cust ID" />
                           </columns>
                         </TableView>
                         <ComboBox fx:id="contactCombo" layoutX="168.0" layoutY="260.0" prefWidth="150.0" promptText="Select a Contact" />

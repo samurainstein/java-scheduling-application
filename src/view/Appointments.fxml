@@ -28,15 +28,15 @@
                      <children>
                         <TableView fx:id="allViewTable" prefHeight="350.0" prefWidth="700.0">
                            <columns>
-                              <TableColumn fx:id="allApptIDCol" prefWidth="77.0" text="ID Number" />
+                              <TableColumn fx:id="allApptIDCol" prefWidth="50.0" text="Appt ID" />
                               <TableColumn fx:id="allTitleCol" prefWidth="78.0" text="Title" />
                               <TableColumn fx:id="allDescriptionCol" prefWidth="77.0" text="Description" />
                               <TableColumn fx:id="allLocationCol" prefWidth="78.0" text="Location" />
                               <TableColumn fx:id="allContactCol" prefWidth="77.0" text="Contact" />
                               <TableColumn fx:id="allTypeCol" prefWidth="78.0" text="Type" />
-                              <TableColumn fx:id="allStartCol" prefWidth="77.0" text="Start" />
-                              <TableColumn fx:id="allEndCol" prefWidth="78.0" text="End" />
-                              <TableColumn fx:id="allCustomerIDCol" prefWidth="79.0" text="Customer ID" />
+                              <TableColumn fx:id="allStartCol" prefWidth="105.0" text="Start" />
+                              <TableColumn fx:id="allEndCol" prefWidth="106.0" text="End" />
+                              <TableColumn fx:id="allCustomerIDCol" prefWidth="50.0" text="Cust ID" />
                            </columns>
                         </TableView>
                      </children>
@@ -49,15 +49,15 @@
                      <children>
                         <TableView fx:id="monthViewTable" prefHeight="350.0" prefWidth="700.0">
                           <columns>
-                            <TableColumn fx:id="monthApptIDCol" prefWidth="77.0" text="ID Number" />
+                            <TableColumn fx:id="monthApptIDCol" prefWidth="50.0" text="Appt ID" />
                             <TableColumn fx:id="monthTitleCol" prefWidth="78.0" text="Title" />
                               <TableColumn fx:id="monthDescriptionCol" prefWidth="77.0" text="Description" />
                               <TableColumn fx:id="monthLocationCol" prefWidth="78.0" text="Location" />
                               <TableColumn fx:id="monthContactCol" prefWidth="77.0" text="Contact" />
                               <TableColumn fx:id="monthTypeCol" prefWidth="78.0" text="Type" />
-                              <TableColumn fx:id="monthStartCol" prefWidth="77.0" text="Start" />
-                              <TableColumn fx:id="monthEndCol" prefWidth="78.0" text="End" />
-                              <TableColumn fx:id="monthCustIDCol" prefWidth="79.0" text="Customer ID" />
+                              <TableColumn fx:id="monthStartCol" prefWidth="105.0" text="Start" />
+                              <TableColumn fx:id="monthEndCol" prefWidth="106.0" text="End" />
+                              <TableColumn fx:id="monthCustIDCol" prefWidth="50.0" text="Cust ID" />
                           </columns>
                         </TableView>
                      </children>
@@ -70,15 +70,15 @@
                      <children>
                         <TableView fx:id="weekViewTable" prefHeight="350.0" prefWidth="700.0">
                            <columns>
-                              <TableColumn fx:id="weekApptIDCol" prefWidth="77.0" text="ID Number" />
+                              <TableColumn fx:id="weekApptIDCol" prefWidth="50.0" text="Appt ID" />
                               <TableColumn fx:id="weekTitleCol" prefWidth="78.0" text="Title" />
                               <TableColumn fx:id="weekDescriptionCol" prefWidth="77.0" text="Description" />
                               <TableColumn fx:id="weekLocationCol" prefWidth="78.0" text="Location" />
                               <TableColumn fx:id="weekContactCol" prefWidth="77.0" text="Contact" />
                               <TableColumn fx:id="weekTypeCol" prefWidth="78.0" text="Type" />
-                              <TableColumn fx:id="weekStartCol" prefWidth="77.0" text="Start" />
-                              <TableColumn fx:id="weekEndCol" prefWidth="78.0" text="End" />
-                              <TableColumn fx:id="weekCustIDCol" prefWidth="79.0" text="Customer ID" />
+                              <TableColumn fx:id="weekStartCol" prefWidth="105.0" text="Start" />
+                              <TableColumn fx:id="weekEndCol" prefWidth="106.0" text="End" />
+                              <TableColumn fx:id="weekCustIDCol" prefWidth="50.0" text="Cust ID" />
                            </columns>
                         </TableView>
                      </children>
