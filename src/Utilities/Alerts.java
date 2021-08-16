@@ -5,6 +5,9 @@
  */
 package Utilities;
 
+import Model.Appointment;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.scene.control.Alert;
 
 /**
@@ -58,9 +61,15 @@ public abstract class Alerts {
     /**
      * Method for generating an alert to indicate an upcoming appointment in the next 15 minutes. 
      */
-    public static void appointmentUpcomingAlert() {
+    public static void appointmentUpcomingAlert(Appointment appointment) {
+        int appointmentID = appointment.getAppointmentID();
+        LocalTime appointmentTime = appointment.getStart().toLocalTime();
+        LocalDate appointmentDate = appointment.getStart().toLocalDate();
         String popupTitle = "Appointment Notification";
-        String popupText = "You have an appointment in the next 15 minutes";
+        String popupText = "You have an appointment in the next 15 minutes.\n" +
+                            "Appointment ID: " + appointmentID + "\n" + 
+                            "Date: " + appointmentDate + "\n" +
+                            "Time: " + appointmentTime;
         Alert popup = new Alert(Alert.AlertType.INFORMATION);
         popup.setTitle(popupTitle);
         popup.setContentText(popupText);

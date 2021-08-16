@@ -15,6 +15,7 @@ import Utilities.PageLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -63,6 +64,9 @@ public class HomeController implements Initializable {
         Data.clearUserAppointments();
         userID = Data.getLoggedInUserID();
         userAppointments = Data.getUserAppointments(userID);
+        LocalDate apptDate;
+        LocalTime apptTime;
+        int apptID;
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime nowPlus15 = currentDateTime.plusMinutes(15);
         for(Appointment appointment : userAppointments) {
@@ -70,7 +74,7 @@ public class HomeController implements Initializable {
             LocalTime startTime = appointmentStart.toLocalTime();
             if(appointmentStart.isBefore(nowPlus15) && appointmentStart.isAfter(currentDateTime)) {
                 //Lambda Expression
-                AppointmentAlertInterface appointmentAlert = () -> Alerts.appointmentUpcomingAlert();
+                AppointmentAlertInterface appointmentAlert = () -> Alerts.appointmentUpcomingAlert(appointment);
                 appointmentAlert.displayAlert();
                 apptNoticeLabel.setText("You have an upcoming appointment at " + startTime.toString());
                 
