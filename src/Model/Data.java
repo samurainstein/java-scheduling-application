@@ -218,7 +218,7 @@ public abstract class Data {
         DayOfWeek dayOfWeek = startDate.getDayOfWeek();
         switch (dayOfWeek) {
             case MONDAY:
-                return;
+                break;
             case TUESDAY:
                 startDate = startDate.minusDays(1);
                 break;
